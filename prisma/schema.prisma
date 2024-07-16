@@ -16,83 +16,83 @@ datasource db {
 // Criar uma migrations
 // yarn prisma migrate dev
 
-model Usuario {
+model Collaborator {
   id        String    @id @default(uuid())
-  tipo      String
-  nome      String
-  senha     String
+  type      String
+  name      String
+  password  String
   createdAt DateTime? @default(now())
 
-  pedido Pedido[]
+  salesForm SalesForm[]
 
-  @@map("usuarios")
+  @@map("collaborators")
 }
 
-model Produto {
-  id           String    @id @default(uuid())
-  codigo       String
-  referencia   String
-  nome         String
-  cor          String
-  tamanho      String
-  entrada      Int
-  saida        Int?      @default(0)
-  separado     Int?      @default(0)
-  valorAtacado String
-  valorVarejo  String
-  createdAt    DateTime? @default(now())
-  updatedAt    DateTime? @default(now())
+model Product {
+  id          String    @id @default(uuid())
+  code        String
+  ref         String
+  name        String
+  color       String
+  size        String
+  add     Int
+  out         Int?      @default(0)
+  reserved    Int?      @default(0)
+  valueResale String
+  valueRetail String
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @default(now())
 
-  orcamentos Orcamento[]
+  budget Budget[]
 
-  @@map("produtos")
+  @@map("products")
 }
 
-model Cliente {
-  id             String    @id @default(uuid())
-  cpf            String
-  nome           String
-  endereco       String
-  whatsapp       String
-  dataNascimento String
-  createdAt      DateTime? @default(now())
+model Client {
+  id        String    @id @default(uuid())
+  cpf_cnpj  String
+  name      String
+  country   String
+  whatsapp  String
+  birthDate String
+  createdAt DateTime? @default(now())
 
-  pedidos Pedido[]
+  salesForm SalesForm[]
 
-  @@map("clientes")
+  @@map("clients")
 }
 
-model Pedido {
+model SalesForm {
   id String @id @default(uuid())
 
-  status    String   @default("Criado") // Separado, Despachado e Entregue
-  Cliente   Cliente? @relation(fields: [clienteId], references: [id])
-  clienteId String?
+  state    String   @default("Open") // Created Reserved Concluded
+  client   Client? @relation(fields: [clientID], references: [id])
+  clientID String?
 
-  orcamento Orcamento[]
+  budget Budget[]
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @default(now())
-  Usuario   Usuario?  @relation(fields: [usuarioId], references: [id])
-  usuarioId String?
+  createdAt      DateTime?     @default(now())
+  updatedAt      DateTime?     @default(now())
+  collaborator   Collaborator? @relation(fields: [collaboratorID], references: [id])
+  collaboratorID String?
 
-  @@map("pedidos")
+  @@map("salesforms")
 }
 
-model Orcamento {
+model Budget {
   id         String @id @default(uuid())
-  quantidade Int
-  preco      String
-  referencia String
-  cor        String
-  tamanho    String
+  amount Int
+  price      String
+  ref String
+  color        String
+  size    String
 
-  Produto   Produto @relation(fields: [produtoId], references: [id])
-  produtoId String
-  pedido    Pedido  @relation(fields: [pedidoId], references: [id])
-  pedidoId  String
+  product     Product   @relation(fields: [productID], references: [id])
+  productID   String
+  salesForm   SalesForm @relation(fields: [salesformID], references: [id])
+  salesformID String
 
   createdAt DateTime? @default(now())
 
-  @@map("orcamentos")
+  @@map("budgets")
 }

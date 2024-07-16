@@ -1,41 +1,51 @@
 import { Router } from 'express';
-import { CriarUsuarioControle } from './controles/usuario/CriarUsuarioControle'
-import { LoginUsuarioControle } from './controles/usuario/LoginUsuarioControle';
-import { DashboardControle } from './controles/sistema/DashboardControle';
-import { CriarPedidoControle } from './controles/pedido/CriarPedidoControle';
-import { CriarClienteControle } from './controles/cliente/CriarClienteControle';
-import { CriarOrcamentoControle } from './controles/orcamento/CriarOrcamentoControle';
-import { CriarProdutoControle } from './controles/produto/CriarProdutoControle';
-import { ListaPedidosControle } from './controles/pedido/ListaPedidosControle';
-import { ListarClientesControle } from './controles/cliente/ListarClientesControle';
-import { ListarOrcamentoControle } from './controles/orcamento/ListarOrcamentoControle';
-import { ListarPedidosClienteControle } from './controles/pedido/ListarPedidosClienteControle';
-import { ListarProdutosControle } from './controles/produto/ListarProdutosControle';
-import { ListarClienteControle } from './controles/cliente/ListarClienteControle';
-import { ListarProdutoCodControle } from './controles/produto/ListarProdutoCodControle';
-import { ListarProdutoRefControle } from './controles/produto/ListarProdutoRefControle';
+import { CreateCollaboratorControl } from './controls/collaborator/CreateCollaboratorControl'
+import { LoginCollaboratorControl } from './controls/collaborator/LoginCollaboratorControl';
+import { DashboardControle } from './controls/system/DashboardControle';
+import { CreateSalesformControl } from './controls/salesform/CreateSalesformControl';
+import { CreateClientControl } from './controls/client/CreateClientControl';
+import { CreateBudgetControl } from './controls/budget/CreateBudgetControl';
+import { CreateProductControl } from './controls/product/CreateProductControl';
+import { ListAllSalesformControl } from './controls/salesform/ListAllSalesformControl';
+import { ListAllClientsControl } from './controls/client/ListAllClientsControl';
+import { ListBudgetControl } from './controls/budget/ListBudgetControl';
+import { ListSalesformByClientControl } from './controls/salesform/ListSalesformByClientControl';
+import { ListAllProductsControl } from './controls/product/ListAllProductsControl';
+import { ListClientControl } from './controls/client/ListClientControl';
+import { ListProductByCodeControl } from './controls/product/ListProductByCodeControl';
+import { ListarProductByRefControl } from './controls/product/ListarProductByRefControl';
+import { DelSalesformControl } from './controls/salesform/DelSalesformControl';
+import { PutSalesformControl } from './controls/salesform/PutSalesformControl';
+import { UpdateStockControl } from './controls/product/UpdateStockControl';
+import { UpdateBudgetControl } from './controls/budget/UpdateBudgetControl';
 
-import { proprietario } from './intermediarios/proprietario';
-import { gerente } from './intermediarios/gerente';
-import { logado } from './intermediarios/logado';
+import { Owner } from './middlewares/owner';
+import { Manager } from './middlewares/manager';
+import { Logged } from './middlewares/logged';
 
 const router = Router();
 
-router.post('/usuario', proprietario, new CriarUsuarioControle().handle)
-router.post('/login', new LoginUsuarioControle().handle)
-router.post('/pedido', logado, new CriarPedidoControle().handle)
-router.post('/cliente', gerente, new CriarClienteControle().handle)
-router.post('/orcamento',logado, new CriarOrcamentoControle().handle)
-router.post('/produto', gerente, new CriarProdutoControle().handle)
+router.post('/createcollaborator', new CreateCollaboratorControl().handle)
+router.post('/login', new LoginCollaboratorControl().handle)
+router.post('/createsalesform', Logged, new CreateSalesformControl().handle)
+router.post('/createclient', Manager, new CreateClientControl().handle)
+router.post('/createbudget',Logged, new CreateBudgetControl().handle)
+router.post('/createproduct', Manager, new CreateProductControl().handle)
 
-router.get('/dashboard', gerente, new DashboardControle().handle)
-router.get('/pedidos', new ListaPedidosControle().handle)
-router.get('/cliente', new ListarClienteControle().handle)
-router.get('/clientes', new ListarClientesControle().handle)
-router.get('/orcamentos/pedido', new ListarOrcamentoControle().handle)
-router.get('/pedidos/cliente', new ListarPedidosClienteControle().handle)
-router.get('/produtos', new ListarProdutosControle().handle)
-router.get('/produto/codigo', new ListarProdutoCodControle().handle)
-router.get('/produto/referencia', new ListarProdutoRefControle().handle)
+router.get('/dashboard', Manager, new DashboardControle().handle)
+router.get('/salesform/all', new ListAllSalesformControl().handle)
+router.get('/getclient', new ListClientControl().handle)
+router.get('/getclients/all', new ListAllClientsControl().handle)
+router.get('/getbudget', new ListBudgetControl().handle)
+router.get('/getsalesform/client', new ListSalesformByClientControl().handle)
+router.get('/getproducts/all', new ListAllProductsControl().handle)
+router.get('/getproduct/code', new ListProductByCodeControl().handle)
+router.get('/getproduct/ref', new ListarProductByRefControl().handle)
+
+router.delete('/delsalesform', Manager, new DelSalesformControl().handle)
+
+router.put('/putsalesform', Logged, new PutSalesformControl().handle)
+router.put('/putstock', Logged, new UpdateStockControl().handle)
+router.put('/budget', Logged, new UpdateBudgetControl().handle)
 
 export { router };
