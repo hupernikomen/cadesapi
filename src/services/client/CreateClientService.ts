@@ -3,16 +3,16 @@ import prismaclient from "../../prisma";
 interface ClientRequest {
     cpf_cnpj: string;
     name: string;
-    country: string;
+    address: string;
+    district: string;
+    city: string;
+    uf: string;
     whatsapp: string;
     birthDate: string
 }
 
 class CreateClientService {
-    async execute({ cpf_cnpj, name, country, whatsapp, birthDate }: ClientRequest) {
-
-
-        
+    async execute({ cpf_cnpj, name, address, district, city, uf, whatsapp, birthDate }: ClientRequest) {
 
         const _registerclient = await prismaclient.client.findFirst({
             where: {
@@ -28,7 +28,10 @@ class CreateClientService {
             data: {
                 cpf_cnpj, 
                 name, 
-                country, 
+                address, 
+                district, 
+                city, 
+                uf: uf.toUpperCase(),
                 whatsapp, 
                 birthDate
             }

@@ -11,10 +11,12 @@ class ListAllSalesformService {
         id: true,
         createdAt: true,
         state: true,
+        formPayment: true,
+
         client: {
           select: { name: true }
         },
-        budget: { select: { product: { select: { _count: true } } } }
+        budget: { select: { product: { select: { _count: true } }, unit: true, total:true } }
 
       },
       orderBy: {

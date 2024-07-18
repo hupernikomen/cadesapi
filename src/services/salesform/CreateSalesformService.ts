@@ -2,11 +2,12 @@ import prismaclient from "../../prisma";
 
 interface SalesformRequest {
     clientID: string;
-    collaboratorID: string
+    collaboratorID: string,
+    formPayment: string
 }
 
 class CreateSalesformService {
-    async execute({ clientID, collaboratorID }: SalesformRequest) {
+    async execute({ clientID, collaboratorID, formPayment }: SalesformRequest) {
 
         const _registerclient = await prismaclient.client.findFirst({
             where: {
@@ -18,11 +19,12 @@ class CreateSalesformService {
             throw new Error("Cliente não encontrado");
         }
 
-        
+
         const salesform = await prismaclient.salesForm.create({
             data: {
                 clientID,
-                collaboratorID
+                collaboratorID,
+                formPayment
             }
         })
 

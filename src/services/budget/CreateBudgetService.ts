@@ -3,19 +3,15 @@ import prismaclient from "../../prisma";
 interface BudgetRequest {
     amount: number;
     salesformID: string;
-    ref: string,
-    color: string;
-    size: string
+    productID: string
 }
 
 class CreateBudgetService {
-    async execute({ amount, salesformID, ref, color, size }: BudgetRequest) {
+    async execute({ amount, salesformID, productID }: BudgetRequest) {
 
         const product = await prismaclient.product.findFirst({
             where: {
-                ref: ref,
-                color: color,
-                size: size
+                id: productID
             }
         })
 
@@ -23,20 +19,18 @@ class CreateBudgetService {
             throw new Error("Produto não cadastrado");
         }
 
-        if (product.add < (product.out + amount)) {
+        if (product.stock < (product.out + amount)) {
             throw new Error("Estoque Insuficiente");
         }
 
 
         const budget = await prismaclient.budget.create({
             data: {
-                ref: ref,
                 amount,
-                productID: product.id,
+                productID: productID,
                 salesformID,
-                price: product.valueResale,
-                color,
-                size
+                unit: parseFloat(product.valueResale.replace(',', '.')),
+                total: parseFloat(product.valueResale.replace(',', '.')),
             }
         })
 

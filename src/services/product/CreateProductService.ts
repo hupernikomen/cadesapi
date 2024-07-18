@@ -6,13 +6,13 @@ interface ProductRequest {
     name: string;
     color: string;
     size: string;
-    add: number;
+    stock: number;
     valueResale: string;
     valueRetail: string
 }
 
 class CreateProductService {
-    async execute({ code, ref, name, color, size, add, valueResale, valueRetail }: ProductRequest) {
+    async execute({ code, ref, name, color, size, stock, valueResale, valueRetail }: ProductRequest) {
 
         const existe = await prismaclient.product.findFirst({
             where: { code: code }
@@ -23,7 +23,7 @@ class CreateProductService {
 
 
         const product = await prismaclient.product.create({
-            data: { code, ref, name, color, size, add, valueResale, valueRetail }
+            data: { code, ref, name, color, size, stock, valueResale, valueRetail }
         })
 
         return product

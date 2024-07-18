@@ -18,6 +18,8 @@ import { DelSalesformControl } from './controls/salesform/DelSalesformControl';
 import { PutSalesformControl } from './controls/salesform/PutSalesformControl';
 import { UpdateStockControl } from './controls/product/UpdateStockControl';
 import { UpdateBudgetControl } from './controls/budget/UpdateBudgetControl';
+import { AddProductControl } from './controls/product/AddProductControl';
+import { DelBudgetControl } from './controls/budget/DelBudgetControl';
 
 import { Owner } from './middlewares/owner';
 import { Manager } from './middlewares/manager';
@@ -43,9 +45,11 @@ router.get('/getproduct/code', new ListProductByCodeControl().handle)
 router.get('/getproduct/ref', new ListarProductByRefControl().handle)
 
 router.delete('/delsalesform', Manager, new DelSalesformControl().handle)
+router.delete('/delbudget', new DelBudgetControl().handle)
 
 router.put('/putsalesform', Logged, new PutSalesformControl().handle)
 router.put('/putstock', Logged, new UpdateStockControl().handle)
 router.put('/budget', Logged, new UpdateBudgetControl().handle)
+router.put('/product/add', Logged, new AddProductControl().handle)
 
 export { router };

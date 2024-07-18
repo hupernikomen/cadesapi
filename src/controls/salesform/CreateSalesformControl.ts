@@ -3,10 +3,10 @@ import { CreateSalesformService } from '../../services/salesform/CreateSalesform
 
 class CreateSalesformControl {
     async handle(req: Request, res: Response) {
-        const { clientID, collaboratorID } = req.body
+        const { clientID, collaboratorID, formPayment } = req.body
 
         const createSalesformService = new CreateSalesformService()
-        const salesform = await createSalesformService.execute({ clientID, collaboratorID })
+        const salesform = await createSalesformService.execute({ clientID, collaboratorID, formPayment })
 
         return res.json(salesform)
     }

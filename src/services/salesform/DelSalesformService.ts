@@ -7,19 +7,25 @@ interface DeletaPedidoRequest {
 class DelSalesformService {
     async execute({ salesformID }: DeletaPedidoRequest) {
 
-        const _registerSalesform = await prismaclient.salesForm.findFirst({
+
+        const budget = await prismaclient.budget.findFirst({
             where: {
-                id: salesformID
+                salesformID: salesformID
             }
         })
 
-        if (_registerSalesform) {
+
+        if (!budget) {
+
             await prismaclient.salesForm.delete({
                 where: {
                     id: salesformID
                 }
             })
         }
+
+
+
     }
 }
 

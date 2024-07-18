@@ -35,7 +35,7 @@ model Product {
   name        String
   color       String
   size        String
-  add     Int
+  stock       Int
   out         Int?      @default(0)
   reserved    Int?      @default(0)
   valueResale String
@@ -52,7 +52,10 @@ model Client {
   id        String    @id @default(uuid())
   cpf_cnpj  String
   name      String
-  country   String
+  address   String
+  district  String
+  city      String
+  uf        String
   whatsapp  String
   birthDate String
   createdAt DateTime? @default(now())
@@ -65,9 +68,12 @@ model Client {
 model SalesForm {
   id String @id @default(uuid())
 
-  state    String   @default("Open") // Created Reserved Concluded
+  state    String  @default("Open") // Created Reserved Concluded
   client   Client? @relation(fields: [clientID], references: [id])
   clientID String?
+  formPayment String?
+  paidOut Float?
+  installments String? // Prestações
 
   budget Budget[]
 
@@ -80,12 +86,10 @@ model SalesForm {
 }
 
 model Budget {
-  id         String @id @default(uuid())
+  id     String @id @default(uuid())
   amount Int
-  price      String
-  ref String
-  color        String
-  size    String
+  unit  Float
+  total Float
 
   product     Product   @relation(fields: [productID], references: [id])
   productID   String

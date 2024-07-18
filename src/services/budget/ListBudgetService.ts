@@ -14,12 +14,13 @@ class ListBudgetService {
       select: {
         product: true,
         id: true,
-        color: true,
         createdAt: true,
-        price: true,
+        unit: true,
+        total:true,
         amount: true,
-        size: true,
-        ref: true,
+      },
+      orderBy: {
+        createdAt: 'desc' // ou 'desc' para ordenar em ordem decrescente
       }
     });
   }

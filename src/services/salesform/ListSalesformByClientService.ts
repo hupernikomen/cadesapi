@@ -1,7 +1,7 @@
 import prismaClient from '../../prisma';
 
 interface OrcamentoRquest {
-    clientID: string;
+  clientID: string;
 }
 
 // Lista Orçamentos com base no numero do Pedido
@@ -14,12 +14,14 @@ class ListSalesformByClientService {
       },
       select: {
         collaborator: {
-          select: { id:true, name: true, type:true }
+          select: { id: true, name: true, type: true }
         },
-        id:true,
-        createdAt:true,
-        state:true,
-      
+        id: true,
+        formPayment: true,
+        budget: { select: { unit: true, total:true } },
+        createdAt: true,
+        state: true,
+
       }
     });
   }

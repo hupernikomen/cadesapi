@@ -3,10 +3,9 @@ import { UpdateBudgetService } from '../../services/budget/UpdateBudgetService'
 
 class UpdateBudgetControl {
     async handle(req: Request, res: Response) {
-        const productID = req.query.productID as string
         const budgetID = req.query.budgetID as string
 
-        const { amount } = req.body
+        const { amount, productID } = req.body
 
         const updateBudgetService = new UpdateBudgetService()
         const budget = await updateBudgetService.execute({ amount, budgetID, productID })

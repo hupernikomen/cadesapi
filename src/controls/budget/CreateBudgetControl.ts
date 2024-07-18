@@ -3,10 +3,10 @@ import { CreateBudgetService } from '../../services/budget/CreateBudgetService'
 
 class CreateBudgetControl {
     async handle(req: Request, res: Response) {
-        const { amount, salesformID, ref, color, size } = req.body
+        const { amount, salesformID, productID } = req.body
 
         const createBudgetService = new CreateBudgetService()
-        const budget = await createBudgetService.execute({ amount, salesformID, ref, color, size })
+        const budget = await createBudgetService.execute({ amount, salesformID, productID })
 
         return res.json(budget)
     }

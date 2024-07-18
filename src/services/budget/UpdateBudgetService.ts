@@ -14,22 +14,22 @@ class UpdateBudgetService {
         const _budget = await prismaclient.budget.findFirst({
             where: {
                 id: budgetID,
-                productID: productID
             }
         })
 
         if (!_budget) {
             throw new Error("Item não encontrado");
-            
+
         }
 
         await prismaclient.budget.updateMany({
             where: {
                 id: budgetID,
-                productID: productID
             },
             data: {
-                amount: amount
+                productID: productID,
+                amount: amount,
+                total: amount * _budget.unit
             }
         })
 

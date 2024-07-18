@@ -6,7 +6,7 @@ interface ProdutoRequest {
 
 class ListarProductByRefService {
     async execute({ ref }: ProdutoRequest) {
-        return await prismaClient.product.findFirst({
+        return await prismaClient.product.findMany({
             where: {
                 ref: ref,
             }
