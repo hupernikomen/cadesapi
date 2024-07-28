@@ -68,7 +68,7 @@ model Client {
 model SalesForm {
   id String @id @default(uuid())
 
-  state    String  @default("Open") // Created Reserved Concluded
+  state    String  @default("Aberto") // Criado Separado Entregue
   client   Client? @relation(fields: [clientID], references: [id])
   clientID String?
   formPayment String?

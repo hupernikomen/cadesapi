@@ -11,12 +11,13 @@ interface StockRequest {
 class AddProductService {
     async execute({ productID, newAmount, valueResale, valueRetail }: StockRequest) {
 
-
         const _product = await prismaclient.product.findFirst({
             where: {
                 id: productID
             }
         })
+
+        
 
         await prismaclient.product.updateMany({
             where: {

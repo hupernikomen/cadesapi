@@ -14,19 +14,33 @@ interface ProductRequest {
 class CreateProductService {
     async execute({ code, ref, name, color, size, stock, valueResale, valueRetail }: ProductRequest) {
 
-        const existe = await prismaclient.product.findFirst({
+        const _product = await prismaclient.product.findFirst({
             where: { code: code }
         })
 
-        if (existe)
-            throw new Error("Referencia já cadastrada");
+        if (!!_product) {
+ 
+            await prismaclient.product.updateMany({
+                where: {
+                    id: _product.id
+                },
+                data: {
+                    stock: _product.stock + stock,
+                    valueResale, 
+                    valueRetail
+                }
+            })
+            
+        } else {
+
+            await prismaclient.product.create({
+                data: { code, ref, name, color, size, stock, valueResale, valueRetail }
+            })
+
+        }
 
 
-        const product = await prismaclient.product.create({
-            data: { code, ref, name, color, size, stock, valueResale, valueRetail }
-        })
 
-        return product
     }
 }
 

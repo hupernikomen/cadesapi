@@ -10,15 +10,15 @@ class UpdateStockService {
         const _salesform = await prismaclient.salesForm.findFirst({ where: { id: salesformID } })
 
         switch (_salesform.state) {
-            case "Created":
+            case "Criado":
                 await prismaclient.salesForm.updateMany({ where: { id: salesformID },
-                    data: { state: "Reserved" }
+                    data: { state: "Separado" }
                 })
                 break;
 
-            case "Reserved":
+            case "Separado":
                 await prismaclient.salesForm.updateMany({ where: { id: salesformID },
-                    data: { state: "Concluded" }
+                    data: { state: "Entregue" }
                 })
 
                 const _budget = await prismaclient.budget.findMany({ where: { salesformID: salesformID } })
@@ -36,13 +36,13 @@ class UpdateStockService {
     
                 break;
 
-            case "Open":
+            case "Aberto":
 
 
                 const _budget2 = await prismaclient.budget.findMany({ where: { salesformID: salesformID } })
 
                 await prismaclient.salesForm.updateMany({ where: { id: salesformID },
-                    data: { state: "Created", paidOut: _budget2.reduce((acc, current) => acc + current.total, 0)}
+                    data: { state: "Criado", paidOut: _budget2.reduce((acc, current) => acc + current.total, 0)}
                 })
                 
     

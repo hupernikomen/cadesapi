@@ -35,7 +35,7 @@ export async function Owner(
             }
         })
 
-        if (collaborator.type === 'owner') {
+        if (collaborator.type === 'Owner') {
             return next()
         } else {
             return res.status(401).end()
