@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,90 +7,92 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Criar uma migrations
-// yarn prisma migrate dev
+// Criar uma migrations : yarn prisma migrate dev
 
-model Collaborator {
-  id        String    @id @default(uuid())
-  type      String
-  name      String
-  password  String
-  createdAt DateTime? @default(now())
+model Usuario {
+  id       String    @id @default(uuid())
+  cargo    String
+  nome     String
+  senha    String
+  criadoEm DateTime? @default(now())
 
-  salesForm SalesForm[]
+  ordemDeCompra OrdemDeCompra[]
 
-  @@map("collaborators")
+  @@map("usuarios")
 }
 
-model Product {
-  id          String    @id @default(uuid())
-  code        String
-  ref         String
-  name        String
-  color       String
-  size        String
-  stock       Int
-  out         Int?      @default(0)
-  reserved    Int?      @default(0)
-  valueResale String
-  valueRetail String
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @default(now())
+model Produto {
+  id             String    @id @default(uuid())
+  codigoDeBarras String
+  referencia     String
+  nome           String
+  cor            String
+  tamanho        String
+  estoque        Int
+  saida          Int?      @default(0)
+  reservado      Int?      @default(0)
+  valorAtacado   String
+  valorVarejo    String
+  criadoEm      DateTime? @default(now())
+  atualizadoEm   DateTime? @default(now())
 
-  budget Budget[]
+  itemDoPedido ItemDoPedido[]
 
-  @@map("products")
+  @@map("produtos")
 }
 
-model Client {
-  id        String    @id @default(uuid())
-  cpf_cnpj  String
-  name      String
-  address   String
-  district  String
-  city      String
-  uf        String
-  whatsapp  String
-  birthDate String
-  createdAt DateTime? @default(now())
+model Cliente {
+  id             String    @id @default(uuid())
+  cpf_cnpj       String
+  nome           String
+  endereco       String
+  bairro         String
+  cidade         String
+  estado         String
+  whatsapp       String
+  dataNascimento String
+  criadoEm       DateTime? @default(now())
 
-  salesForm SalesForm[]
+  ordemDeCompra OrdemDeCompra[]
 
-  @@map("clients")
+  @@map("clientes")
 }
 
-model SalesForm {
+model OrdemDeCompra {
   id String @id @default(uuid())
 
-  state    String  @default("Aberto") // Criado Separado Entregue
-  client   Client? @relation(fields: [clientID], references: [id])
-  clientID String?
-  formPayment String?
-  paidOut Float?
-  installments String? // Prestações
+  estado           String   @default("Aberto") // Criado Separado Entregue
+  formaDePagamento String?
+  valorPago        Float?
+  tempoDePagamento String?
+  observacao       String?
+  valorAdiantado    Float?
 
-  budget Budget[]
+  itemDoPedido ItemDoPedido[]
 
-  createdAt      DateTime?     @default(now())
-  updatedAt      DateTime?     @default(now())
-  collaborator   Collaborator? @relation(fields: [collaboratorID], references: [id])
-  collaboratorID String?
+  cliente           Cliente? @relation(fields: [clienteID], references: [id])
+  clienteID        String?
 
-  @@map("salesforms")
+  criadoEm     DateTime? @default(now())
+  atualizadoEm DateTime? @default(now())
+  usuario      Usuario?  @relation(fields: [usuarioID], references: [id])
+  usuarioID    String?
+
+  @@map("ordensDeCompras")
 }
 
-model Budget {
-  id     String @id @default(uuid())
-  amount Int
-  unit  Float
-  total Float
+model ItemDoPedido {
+  id            String @id @default(uuid())
+  quantidade    Int
+  valorUnitario Float
+  total         Float
 
-  product     Product   @relation(fields: [productID], references: [id])
-  productID   String
-  salesForm   SalesForm @relation(fields: [salesformID], references: [id])
-  salesformID String
+  produto         Produto       @relation(fields: [produtoID], references: [id])
+  produtoID       String
+  ordemDeCompra   OrdemDeCompra @relation(fields: [ordemDeCompraID], references: [id])
+  ordemDeCompraID String
 
-  createdAt DateTime? @default(now())
+  criadoEm DateTime? @default(now())
 
-  @@map("budgets")
+  @@map("itensDoPedido")
 }
