@@ -10,6 +10,8 @@ app.use(express.json());
 app.use(cors());
 app.use(router);
 
+const port = process.env.PORT || 3333
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof Error) {
         return res.status(400).json({
@@ -24,4 +26,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     });
 })
 
-app.listen(3333, () => console.log("Servidor online"));
+app.listen(port, () => console.log("Servidor online"));
