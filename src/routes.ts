@@ -18,9 +18,11 @@ import { ExcluiOrdemDeCompraControle } from './controles/ordemDeCompra/ExcluiOrd
 import { AtualizaOrdemDeCompraControle } from './controles/ordemDeCompra/AtualizaOrdemDeCompraControle';
 import { AtualizaEstoqueDoProdutoControle } from './controles/produto/AtualizaEstoqueDoProdutoControle';
 import { AtualizaItemDoPedidoControle } from './controles/itemDoPedido/AtualizaItemDoPedidoControle';
-import { AdicionaProdutoControle } from './controles/produto/AdicionaProdutoControle';
+// import { AdicionaProdutoControle } from './controles/produto/AdicionaProdutoControle';
 import { ExcluiItemDoPedidoControle } from './controles/itemDoPedido/ExcluiItemDoPedidoControle';
 import { ListarProductUniqueRefControl } from './controles/produto/ListarProductUniqueRefControl';
+import { CancelaOrdemDeCompraControle } from './controles/ordemDeCompra/CancelaOrdemDeCompraControle';
+
 
 import { Socio } from './intermediarios/socio';
 import { Gerente } from './intermediarios/gerente';
@@ -48,10 +50,11 @@ router.get('/getproduct/unique/ref', new ListarProductUniqueRefControl().handle)
 
 router.delete('/deleta/ordemDeCompra', Gerente, new ExcluiOrdemDeCompraControle().handle)
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
+router.delete('/cancelaCompra', Socio, new CancelaOrdemDeCompraControle().handle)
 
 router.put('/atualiza/ordemDeCompra', Logado, new AtualizaOrdemDeCompraControle().handle)
-router.put('/putstock', Logado, new AtualizaEstoqueDoProdutoControle().handle)
+router.put('/atualiza/estoque', Logado, new AtualizaEstoqueDoProdutoControle().handle)
 router.put('/atualiza/itemDoPedido', Logado, new AtualizaItemDoPedidoControle().handle)
-router.put('/product/add', Socio, new AdicionaProdutoControle().handle)
+// router.put('/product/add', Socio, new AdicionaProdutoControle().handle)
 
 export { router };

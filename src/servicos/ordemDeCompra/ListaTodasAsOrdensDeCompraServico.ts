@@ -2,7 +2,8 @@ import prismaClient from '../../prisma';
 
 class ListaTodasAsOrdensDeCompraServico {
   async execute() {
-    return await prismaClient.ordemDeCompra.findMany({
+
+    const ordemDeCompra = await prismaClient.ordemDeCompra.findMany({
 
       select: {
         usuario: {
@@ -14,15 +15,24 @@ class ListaTodasAsOrdensDeCompraServico {
         estado: true,
         formaDePagamento: true,
         observacao: true,
+        tempoDePagamento:true,
+        valorAdiantado:true,
+        valorPago:true,
         cliente: {
           select: { nome: true }
         },
+
         itemDoPedido: { select: { produto: { select: { _count: true } }, valorUnitario: true, total: true } },
       },
       // orderBy: {
       //   criadoEm: 'desc' // ou 'desc' para ordenar em ordem decrescente
       // }
     });
+
+
+    return ordemDeCompra
+    
+
   }
 }
 

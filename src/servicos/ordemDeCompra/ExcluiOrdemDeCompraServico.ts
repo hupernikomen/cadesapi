@@ -7,33 +7,29 @@ interface DadosDaOrdemDeCompra {
 class ExcluiOrdemDeCompraServico {
     async execute({ ordemDeCompraID }: DadosDaOrdemDeCompra) {
 
-        const ordemDeCompraEncontrada = await prismaclient.ordemDeCompra.findFirst({
-            where: {
-                id: ordemDeCompraID
-            }
-        })
 
-        if (!ordemDeCompraEncontrada) {
-            throw new Error("Pedido não foi encontrado ou não existe");
-        }
-
-
-        const itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findFirst({
-            where: {
+        const itensDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({
+            where:{
                 ordemDeCompraID: ordemDeCompraID
             }
         })
 
-
-        if (!itemDoPedidoEncontrado && !!ordemDeCompraEncontrada) {
-            await prismaclient.ordemDeCompra.delete({
+        itensDoPedidoEncontrado.forEach(async(item) => {
+            await prismaclient.itemDoPedido.delete({
                 where: {
-                    id: ordemDeCompraID
+                    id: item.id,
+                    quantidade: 0
+                    
                 }
             })
-        }
+        })
 
 
+        await prismaclient.ordemDeCompra.delete({
+            where: {
+                id: ordemDeCompraID
+            }
+        })
 
     }
 }

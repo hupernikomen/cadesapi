@@ -32,7 +32,7 @@ class CriaItemDoPedidoServico {
                 produtoID: produtoID,
                 ordemDeCompraID: ordemDeCompraID,
                 valorUnitario: parseFloat(produtoEncontrado.valorAtacado.replace(',', '.')),
-                total: parseFloat(produtoEncontrado.valorVarejo.replace(',', '.')),
+                total: parseFloat(produtoEncontrado.valorAtacado.replace(',', '.')),
             }
         })
 
