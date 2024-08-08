@@ -39,11 +39,7 @@ class CancelaOrdemDeCompraService {
                 }
             })
 
-            // await prismaclient.ordemDeCompra.delete({
-            //     where: {
-            //         id: ordemDeCompraID
-            //     }
-            // })
+
         })
 
 
