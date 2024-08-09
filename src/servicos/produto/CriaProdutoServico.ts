@@ -4,7 +4,7 @@ interface ProductRequest {
     codigoDeBarras: string,
     referencia: string;
     nome: string;
-    cor: string;
+    corID: string;
     tamanho: string;
     estoque: number;
     valorAtacado: string;
@@ -12,7 +12,7 @@ interface ProductRequest {
 }
 
 class CriaProdutoServico {
-    async execute({ codigoDeBarras, referencia, nome, cor, tamanho, estoque, valorAtacado, valorVarejo }: ProductRequest) {
+    async execute({ codigoDeBarras, referencia, nome, corID, tamanho, estoque, valorAtacado, valorVarejo }: ProductRequest) {
 
         const produtoEncontrado = await prismaclient.produto.findFirst({
             where: { codigoDeBarras: codigoDeBarras }
@@ -39,7 +39,7 @@ class CriaProdutoServico {
                     codigoDeBarras, 
                     referencia, 
                     nome, 
-                    cor, 
+                    corID, 
                     tamanho, 
                     estoque, 
                     valorAtacado, 

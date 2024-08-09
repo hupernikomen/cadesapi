@@ -22,21 +22,22 @@ model Usuario {
 }
 
 model Produto {
-  id             String    @id @default(uuid())
+  id             String @id @default(uuid())
   codigoDeBarras String
   referencia     String
   nome           String
-  cor            String
-  tamanho        String
-  estoque        Int
-  saida          Int?      @default(0)
-  reservado      Int?      @default(0)
-  valorAtacado   String
-  valorVarejo    String
-  criadoEm      DateTime? @default(now())
-  atualizadoEm   DateTime? @default(now())
+  tamanho      String
+  estoque      Int
+  saida        Int?      @default(0)
+  reservado    Int?      @default(0)
+  valorAtacado String
+  valorVarejo  String
+  criadoEm     DateTime? @default(now())
+  atualizadoEm DateTime? @default(now())
 
   itemDoPedido ItemDoPedido[]
+  cor          Cor?           @relation(fields: [corID], references: [id])
+  corID        String?
 
   @@map("produtos")
 }
@@ -61,17 +62,17 @@ model Cliente {
 model OrdemDeCompra {
   id String @id @default(uuid())
 
-  estado           String   @default("Aberto") // Criado Separado Entregue
+  estado           String  @default("Aberto") // Criado Separado Entregue
   formaDePagamento String?
   valorPago        Float?
   tempoDePagamento String?
   observacao       String?
-  valorAdiantado    Float?
+  valorAdiantado   Float?
 
   itemDoPedido ItemDoPedido[]
 
-  cliente           Cliente? @relation(fields: [clienteID], references: [id])
-  clienteID        String?
+  cliente   Cliente? @relation(fields: [clienteID], references: [id])
+  clienteID String?
 
   criadoEm     DateTime? @default(now())
   atualizadoEm DateTime? @default(now())
@@ -95,4 +96,14 @@ model ItemDoPedido {
   criadoEm DateTime? @default(now())
 
   @@map("itensDoPedido")
+}
+
+model Cor {
+  id     String @id @default(uuid())
+  nome   String
+  codigo String
+
+  produto Produto[]
+
+  @@map("cores")
 }
