@@ -22,6 +22,7 @@ import { AtualizaItemDoPedidoControle } from './controles/itemDoPedido/AtualizaI
 import { ExcluiItemDoPedidoControle } from './controles/itemDoPedido/ExcluiItemDoPedidoControle';
 import { ListarProductUniqueRefControl } from './controles/produto/ListarProductUniqueRefControl';
 import { CancelaOrdemDeCompraControle } from './controles/ordemDeCompra/CancelaOrdemDeCompraControle';
+import { CriaCorControle } from './controles/cor/CriaCorControle';
 
 
 import { Socio } from './intermediarios/socio';
@@ -36,6 +37,7 @@ router.post('/cria/ordemDeCompra', Logado, new CriaOrdemDeCompraControle().handl
 router.post('/registra/cliente', Gerente, new CriaClienteControle().handle)
 router.post('/cria/itemDoPedido', Logado, new CriaItemDoPedidoControle().handle)
 router.post('/cria/produto', Logado, new CriaProdutoControle().handle)
+router.post('/criaCor', Socio, new CriaCorControle().handle)
 
 router.get('/dashboard', Gerente, new DashboardControle().handle)
 router.get('/lista/ordemDeCompras', new ListaTodasAsOrdensDeCompraControle().handle)
