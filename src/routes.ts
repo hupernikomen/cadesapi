@@ -23,6 +23,7 @@ import { ExcluiItemDoPedidoControle } from './controles/itemDoPedido/ExcluiItemD
 import { ListarProductUniqueRefControl } from './controles/produto/ListarProductUniqueRefControl';
 import { CancelaOrdemDeCompraControle } from './controles/ordemDeCompra/CancelaOrdemDeCompraControle';
 import { CriaCorControle } from './controles/cor/CriaCorControle';
+import { ListaCorControle } from './controles/cor/ListaCorControle';
 
 
 import { Socio } from './intermediarios/socio';
@@ -37,7 +38,7 @@ router.post('/cria/ordemDeCompra', Logado, new CriaOrdemDeCompraControle().handl
 router.post('/registra/cliente', Gerente, new CriaClienteControle().handle)
 router.post('/cria/itemDoPedido', Logado, new CriaItemDoPedidoControle().handle)
 router.post('/cria/produto', Logado, new CriaProdutoControle().handle)
-router.post('/criaCor', Socio, new CriaCorControle().handle)
+router.post('/criacor', Socio, new CriaCorControle().handle)
 
 router.get('/dashboard', Gerente, new DashboardControle().handle)
 router.get('/lista/ordemDeCompras', new ListaTodasAsOrdensDeCompraControle().handle)
@@ -49,6 +50,7 @@ router.get('/lista/produtos', new ListaTodosOsProdutosControle().handle)
 router.get('/getproduct/code', new ListProductByCodeControl().handle)
 router.get('/busca/produto/referencia', new BuscaProdutoPorReferenciaControle().handle)
 router.get('/getproduct/unique/ref', new ListarProductUniqueRefControl().handle)
+router.get('/listaCores', new ListaCorControle().handle)
 
 router.delete('/deleta/ordemDeCompra', Gerente, new ExcluiOrdemDeCompraControle().handle)
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
