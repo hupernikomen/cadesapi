@@ -33,6 +33,7 @@ class LoginUsuarioServico {
         })
 
         if (!usuarioEncontrado) {
+            console.log("Usuário não existe");
             throw new Error("Usuário não existe");
 
         }
@@ -40,8 +41,8 @@ class LoginUsuarioServico {
         const comparesenha = await compare(senha, usuarioEncontrado.senha)
 
         if (!comparesenha) {
-            throw new Error("Senha Incorreta");
             console.log("Senha Incorreta");
+            throw new Error("Senha Incorreta");
             
 
         }
@@ -56,7 +57,7 @@ class LoginUsuarioServico {
             process.env.JWT_secret,
             {
                 subject: usuarioEncontrado.id,
-                expiresIn: '30d'
+                // expiresIn: '30d'
 
             }
 
