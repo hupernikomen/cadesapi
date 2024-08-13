@@ -22,6 +22,10 @@ class LoginUsuarioServico {
             })
         }
 
+        const usuarios = await prismaclient.usuario.findMany()
+        console.log(usuarios, "Todos os usuarios");
+        
+
         const usuarioEncontrado = await prismaclient.usuario.findFirst({
             where: {
                 nome: nome
@@ -37,6 +41,8 @@ class LoginUsuarioServico {
 
         if (!comparesenha) {
             throw new Error("Senha Incorreta");
+            console.log("Senha Incorreta");
+            
 
         }
 
