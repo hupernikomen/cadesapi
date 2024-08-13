@@ -1,5 +1,6 @@
 import prismaclient from "../../prisma";
 import { compare } from 'bcryptjs'
+import { hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
 interface LoginRequest {
@@ -9,6 +10,18 @@ interface LoginRequest {
 
 class LoginUsuarioServico {
     async execute({ nome, senha }: LoginRequest) {
+
+        const contagemDeUsuarios = await prismaclient.usuario.count()
+        if (contagemDeUsuarios === 0) {
+            await prismaclient.usuario.create({
+                data: {
+                    cargo: 'Socio',
+                    nome: 'Wilson Ramos',
+                    senha: await hash('465437', 8)
+                },
+            })
+        }
+
         const usuarioEncontrado = await prismaclient.usuario.findFirst({
             where: {
                 nome: nome

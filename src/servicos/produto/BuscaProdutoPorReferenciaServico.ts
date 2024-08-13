@@ -9,6 +9,22 @@ class BuscaProdutoPorReferenciaServico {
         return await prismaClient.produto.findMany({
             where: {
                 referencia: referencia,
+            },
+            select:{
+                cor:{select:{nome:true}},
+                codigoDeBarras:true,
+                estoque:true,
+                id:true,
+                nome:true,
+                itemDoPedido:true,
+                referencia:true,
+                reservado:true,
+                saida:true,
+                tamanho:true,
+                valorAtacado:true,
+                valorVarejo:true,
+                atualizadoEm:true,
+                criadoEm:true
             }
         });
     }

@@ -5,10 +5,10 @@ class AtualizaOrdemDeCompraControle {
     async handle(req: Request, res: Response) {
         const ordemDeCompraID = req.query.ordemDeCompraID as string
 
-        const { estado, formaDePagamento, valorPago, tempoDePagamento, valorAdiantado, observacao } = req.body
+        const { estado, formaDePagamento,totalDaNota, valorPago, tempoDePagamento, valorAdiantado, observacao, desconto } = req.body
 
         const atualizaOrdemDeCompraServico = new AtualizaOrdemDeCompraServico()
-        const ordemDeCompra = await atualizaOrdemDeCompraServico.execute({ ordemDeCompraID, estado, formaDePagamento, valorPago, tempoDePagamento, valorAdiantado, observacao })
+        const ordemDeCompra = await atualizaOrdemDeCompraServico.execute({ ordemDeCompraID, estado,totalDaNota, formaDePagamento, valorPago, tempoDePagamento, valorAdiantado, observacao, desconto })
 
         return res.json(ordemDeCompra)
     }

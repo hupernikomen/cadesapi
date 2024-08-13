@@ -33,22 +33,6 @@ class AtualizaItemDoPedidoServico {
 
         }
 
-        // if (produtoEncontrado.reservado !== quantidade) {
-
-        //     const diferenca = (produtoEncontrado.reservado - quantidade) === 0 ?quantidade : produtoEncontrado.reservado - quantidade
-
-        //     console.log(produtoEncontrado.reservado, quantidade);
-            
-        //     await prismaclient.produto.updateMany({
-        //         where: {
-        //             id: produtoEncontrado.id
-        //         },
-        //         data: {
-        //             reservado: produtoEncontrado.reservado - diferenca,
-        //         }
-        //     })
-        // }
-        
 
         await prismaclient.itemDoPedido.updateMany({
             where: {
@@ -57,7 +41,6 @@ class AtualizaItemDoPedidoServico {
             data: {
                 produtoID: produtoID,
                 quantidade: quantidade,
-                total: quantidade * itemDoPedidoEncontrado.valorUnitario
             }
         })
 

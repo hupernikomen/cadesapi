@@ -15,7 +15,7 @@ class AtualizaEstoqueDoProdutoService {
                 const itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({ where: { ordemDeCompraID: ordemDeCompraID } })
                 await prismaclient.ordemDeCompra.updateMany({
                     where: { id: ordemDeCompraID },
-                    data: { estado: "Criado", valorPago: itemDoPedidoEncontrado.reduce((acc, current) => acc + current.total, 0) }
+                    data: { estado: "Criado" }
                 })
                 
                 

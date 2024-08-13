@@ -3,28 +3,33 @@ import prismaclient from "../../prisma";
 interface SalesformRequest {
     ordemDeCompraID: string;
     estado: string;
+    totalDaNota: number,
     formaDePagamento: string,
     valorPago: number,
     tempoDePagamento: string,
     valorAdiantado: number,
-    observacao: string
+    observacao: string;
+    desconto: number
 }
 
 class AtualizaOrdemDeCompraServico {
-    async execute({ ordemDeCompraID, estado, formaDePagamento, valorPago, tempoDePagamento, valorAdiantado, observacao }: SalesformRequest) {
+    async execute({ ordemDeCompraID, estado, totalDaNota, formaDePagamento, valorPago, tempoDePagamento, valorAdiantado, observacao, desconto }: SalesformRequest) {
+        
 
         await prismaclient.ordemDeCompra.updateMany({
             where: {
                 id: ordemDeCompraID
             },
             data: {
-                estado: estado,
-                formaDePagamento: formaDePagamento,
-                valorPago: valorPago,
-                tempoDePagamento: tempoDePagamento,
-                valorAdiantado: valorAdiantado,
-                observacao: observacao,
-                atualizadoEm: new Date()
+                estado,
+                formaDePagamento,
+                totalDaNota,
+                valorPago,
+                tempoDePagamento,
+                valorAdiantado,
+                desconto,
+                observacao,
+                atualizadoEm: new Date(),
             }
         })
     }

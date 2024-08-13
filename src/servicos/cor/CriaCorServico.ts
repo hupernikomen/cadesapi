@@ -18,7 +18,7 @@ class CriaCorServico {
         })
 
         if (corEncontrada) {
-            throw new Error("Cor ou código já cadastrado");
+            throw new Error("Cor já existe");
         }
 
         const corCriada = await prismaclient.cor.create({

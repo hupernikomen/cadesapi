@@ -10,11 +10,12 @@ datasource db {
 // Criar uma migrations : yarn prisma migrate dev
 
 model Usuario {
-  id       String    @id @default(uuid())
-  cargo    String
-  nome     String
-  senha    String
-  criadoEm DateTime? @default(now())
+  id        String    @id @default(uuid())
+  cargo     String
+  matricula String?
+  nome      String
+  senha     String
+  criadoEm  DateTime? @default(now())
 
   ordemDeCompra OrdemDeCompra[]
 
@@ -22,18 +23,18 @@ model Usuario {
 }
 
 model Produto {
-  id             String @id @default(uuid())
+  id             String    @id @default(uuid())
   codigoDeBarras String
   referencia     String
   nome           String
-  tamanho      String
-  estoque      Int
-  saida        Int?      @default(0)
-  reservado    Int?      @default(0)
-  valorAtacado String
-  valorVarejo  String
-  criadoEm     DateTime? @default(now())
-  atualizadoEm DateTime? @default(now())
+  tamanho        String
+  estoque        Int
+  saida          Int?      @default(0)
+  reservado      Int?      @default(0)
+  valorAtacado   String
+  valorVarejo    String
+  criadoEm       DateTime? @default(now())
+  atualizadoEm   DateTime? @default(now())
 
   itemDoPedido ItemDoPedido[]
   cor          Cor?           @relation(fields: [corID], references: [id])
@@ -64,10 +65,13 @@ model OrdemDeCompra {
 
   estado           String  @default("Aberto") // Criado Separado Entregue
   formaDePagamento String?
-  valorPago        Float?
   tempoDePagamento String?
   observacao       String?
-  valorAdiantado   Float?
+
+  desconto       Int?
+  valorPago      Float?
+  totalDaNota    Float?
+  valorAdiantado Float?
 
   itemDoPedido ItemDoPedido[]
 
@@ -86,7 +90,6 @@ model ItemDoPedido {
   id            String @id @default(uuid())
   quantidade    Int
   valorUnitario Float
-  total         Float
 
   produto         Produto       @relation(fields: [produtoID], references: [id])
   produtoID       String
@@ -106,4 +109,12 @@ model Cor {
   produto Produto[]
 
   @@map("cores")
+}
+
+model BancoDeHoras {
+  id String @id @default(uuid())
+
+  codigo String
+
+  @@map("bancodehoras")
 }

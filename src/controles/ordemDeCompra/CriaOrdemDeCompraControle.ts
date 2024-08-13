@@ -3,10 +3,10 @@ import { CriaOrdemDeCompraServico } from '../../servicos/ordemDeCompra/CriaOrdem
 
 class CriaOrdemDeCompraControle {
     async handle(req: Request, res: Response) {
-        const { clienteID, usuarioID, formaDePagamento } = req.body
+        const { clienteID, usuarioID, formaDePagamento, desconto } = req.body
 
         const criaOrdemDeCompraServico = new CriaOrdemDeCompraServico()
-        const ordemDeCompra = await criaOrdemDeCompraServico.execute({ clienteID, usuarioID, formaDePagamento })
+        const ordemDeCompra = await criaOrdemDeCompraServico.execute({ clienteID, usuarioID, formaDePagamento, desconto })
 
         return res.json(ordemDeCompra)
     }

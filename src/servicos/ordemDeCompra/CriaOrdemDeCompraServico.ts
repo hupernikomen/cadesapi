@@ -1,13 +1,14 @@
 import prismaclient from "../../prisma";
 
-interface SalesformRequest {
+interface DadosDaCompra {
     clienteID: string;
     usuarioID: string,
-    formaDePagamento: string
+    formaDePagamento: string,
+    desconto: number
 }
 
 class CriaOrdemDeCompraServico {
-    async execute({ clienteID, usuarioID, formaDePagamento }: SalesformRequest) {
+    async execute({ clienteID, usuarioID, formaDePagamento, desconto }: DadosDaCompra) {
 
         const clienteEncontrado = await prismaclient.cliente.findFirst({
             where: {
@@ -24,7 +25,8 @@ class CriaOrdemDeCompraServico {
             data: {
                 clienteID,
                 usuarioID,
-                formaDePagamento
+                formaDePagamento,
+                desconto
             },
 
         })

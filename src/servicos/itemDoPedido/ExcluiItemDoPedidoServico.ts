@@ -20,6 +20,21 @@ class ExcluiItemDoPedidoServico {
                 }
             })
         }
+
+        const ordemDeCompraEncontrada = await prismaclient.ordemDeCompra.findFirst({
+            where: {
+                id: itemDoPedidoEncontrado.ordemDeCompraID
+            }
+        })
+
+        await prismaclient.ordemDeCompra.updateMany({
+            where: {
+                id: itemDoPedidoEncontrado.ordemDeCompraID
+            },
+            data: {
+                totalDaNota: ordemDeCompraEncontrada.totalDaNota -  itemDoPedidoEncontrado.valorUnitario,
+            }
+        })
     }
 }
 

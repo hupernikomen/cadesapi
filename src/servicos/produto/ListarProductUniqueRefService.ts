@@ -1,17 +1,17 @@
-import prismaClient from '../../prisma';
+// import prismaClient from '../../prisma';
 
-interface ProdutoRequest {
-    referencia: string;
-}
+// interface ProdutoRequest {
+//     referencia: string;
+// }
 
-class ListarProductUniqueRefService {
-    async execute({ referencia }: ProdutoRequest) {
-        return await prismaClient.produto.findFirst({
-            where:{
-                referencia:referencia
-            }
-        });
-    }
-}
+// class ListarProductUniqueRefService {
+//     async execute({ referencia }: ProdutoRequest) {
+//         return await prismaClient.produto.findFirst({
+//             where:{
+//                 referencia:referencia
+//             }
+//         });
+//     }
+// }
 
-export { ListarProductUniqueRefService };
+// export { ListarProductUniqueRefService };

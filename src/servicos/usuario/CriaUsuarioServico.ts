@@ -10,6 +10,8 @@ interface DadosDoUsuario {
 class CriaUsuarioServico {
     async execute({ cargo, nome, senha }: DadosDoUsuario) {
 
+        const senhahash = await hash(senha, 8)
+
         const usuarioEncontrado = await prismaclient.usuario.findFirst({
             where: {
                 nome: nome
@@ -20,7 +22,7 @@ class CriaUsuarioServico {
             throw new Error(`${cargo} ${nome} já cadastrado`);
         }
 
-        const senhahash = await hash(senha, 8)
+        
 
         const usuarioCriado = await prismaclient.usuario.create({
             data: {
