@@ -12,6 +12,8 @@ class LoginUsuarioServico {
     async execute({ nome, senha }: LoginRequest) {
 
         const contagemDeUsuarios = await prismaclient.usuario.count()
+        console.log(contagemDeUsuarios);
+        
         if (contagemDeUsuarios === 0) {
             await prismaclient.usuario.create({
                 data: {

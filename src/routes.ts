@@ -21,6 +21,7 @@ import { CriaCorControle } from './controles/cor/CriaCorControle';
 import { ListaCorControle } from './controles/cor/ListaCorControle';
 // import { BuscaCorControle } from './controles/cor/BuscaCorControle';
 import { BuscaOrdemDeCompraControle } from './controles/ordemDeCompra/BuscaOrdemDeCompraControle';
+import { ListaUsuariosControle } from './controles/usuario/ListaUsuariosControle';
 
 
 import { Socio } from './intermediarios/socio';
@@ -46,6 +47,7 @@ router.get('/busca/produto/referencia', new BuscaProdutoPorReferenciaControle().
 router.get('/listaCores', new ListaCorControle().handle)
 // router.get('/busca/cor', new BuscaCorControle().handle)
 router.get('/busca/ordemDeCompra', new BuscaOrdemDeCompraControle().handle)
+router.get('/lista/usuarios', new ListaUsuariosControle().handle)
 
 router.delete('/deleta/ordemDeCompra', Gerente, new ExcluiOrdemDeCompraControle().handle)
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
