@@ -10,6 +10,11 @@ class BuscaCorServico {
         return await prismaClient.cor.findFirst({
             where: {
                 id: corID
+            },
+            select:{
+                codigo:true,
+                nome:true,
+                
             }
         });
     }

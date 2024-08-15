@@ -12,7 +12,6 @@ class LoginUsuarioServico {
     async execute({ nome, senha }: LoginRequest) {
 
         const contagemDeUsuarios = await prismaclient.usuario.count()
-        console.log(contagemDeUsuarios);
         
         if (contagemDeUsuarios === 0) {
             await prismaclient.usuario.create({
@@ -24,10 +23,6 @@ class LoginUsuarioServico {
             })
         }
 
-        const usuarios = await prismaclient.usuario.findMany()
-        console.log(usuarios, "Todos os usuarios");
-        
-
         const usuarioEncontrado = await prismaclient.usuario.findFirst({
             where: {
                 nome: nome
@@ -35,7 +30,6 @@ class LoginUsuarioServico {
         })
 
         if (!usuarioEncontrado) {
-            console.log("Usuário não existe");
             throw new Error("Usuário não existe");
 
         }
@@ -43,7 +37,6 @@ class LoginUsuarioServico {
         const comparesenha = await compare(senha, usuarioEncontrado.senha)
 
         if (!comparesenha) {
-            console.log("Senha Incorreta");
             throw new Error("Senha Incorreta");
             
 
@@ -52,6 +45,7 @@ class LoginUsuarioServico {
         // Gerar token 
         const token = sign(
             {
+                matricula: usuarioEncontrado.matricula,
                 cargo: usuarioEncontrado.cargo,
                 nome: usuarioEncontrado.nome,
 
@@ -67,6 +61,7 @@ class LoginUsuarioServico {
 
         return {
             id: usuarioEncontrado.id,
+            matricula: usuarioEncontrado.matricula,
             nome: usuarioEncontrado.nome,
             cargo: usuarioEncontrado.cargo,
             token: token
