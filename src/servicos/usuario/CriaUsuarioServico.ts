@@ -23,8 +23,6 @@ class CriaUsuarioServico {
             throw new Error(`${cargo} ${nome} já cadastrado`);
         }
 
-        
-
         const usuarioCriado = await prismaclient.usuario.create({
             data: {
                 cargo,

@@ -1,15 +1,15 @@
 import { Request, Response, response } from 'express'
 import { ExcluiItemDoPedidoServico } from '../../servicos/itemDoPedido/ExcluiItemDoPedidoServico'
 
-class ExcluiItemDoPedidoControle {
+class ExcluiUsuarioControle {
     async handle(req: Request, res: Response) {
-        const itemDoPedidoID = req.query.itemDoPedidoID as string
+        const usuarioID = req.query.usuarioID as string
 
         const excluiItemDoPedidoServico = new ExcluiItemDoPedidoServico()
-        const itemDoPedido = await excluiItemDoPedidoServico.execute({ usuarioID: itemDoPedidoID })
+        const usuario = await excluiItemDoPedidoServico.execute({ usuarioID })
 
-        return res.json(itemDoPedido)
+        return res.json(usuario)
     }
 }
 
-export { ExcluiItemDoPedidoControle }
+export { ExcluiUsuarioControle }

@@ -28,6 +28,7 @@ import { ExcluiProdutoControle } from './controles/produto/ExcluiProdutoControle
 import { Socio } from './intermediarios/socio';
 import { Gerente } from './intermediarios/gerente';
 import { Logado } from './intermediarios/logado';
+import { ExcluiUsuarioControle } from './controles/usuario/ExcluiUsuarioControle';
 
 const router = Router();
 
@@ -54,6 +55,7 @@ router.delete('/deleta/ordemDeCompra', Gerente, new ExcluiOrdemDeCompraControle(
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
 router.delete('/deleta/produto', Socio, new ExcluiProdutoControle().handle)
 router.delete('/cancelaCompra', Socio, new CancelaOrdemDeCompraControle().handle)
+router.delete('/deleta/usuario', Socio, new ExcluiUsuarioControle().handle)
 
 router.put('/atualiza/ordemDeCompra', Logado, new AtualizaOrdemDeCompraControle().handle)
 router.put('/atualiza/estoque', Logado, new AtualizaEstoqueDoProdutoControle().handle)
