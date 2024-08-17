@@ -4,11 +4,12 @@ import { hash } from 'bcryptjs'
 interface DadosDoUsuario {
     cargo: string;
     nome: string;
-    senha: string
+    senha: string;
+    matricula:string
 }
 
 class CriaUsuarioServico {
-    async execute({ cargo, nome, senha }: DadosDoUsuario) {
+    async execute({ cargo, nome, senha, matricula }: DadosDoUsuario) {
 
         const senhahash = await hash(senha, 8)
 
@@ -28,11 +29,13 @@ class CriaUsuarioServico {
             data: {
                 cargo,
                 nome,
-                senha: senhahash
+                senha: senhahash,
+                matricula,
             },
             select: {
                 cargo: true,
-                nome: true
+                nome: true,
+                matricula:true
             }
         })
 
