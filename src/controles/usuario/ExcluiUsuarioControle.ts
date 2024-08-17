@@ -1,12 +1,12 @@
 import { Request, Response, response } from 'express'
-import { ExcluiItemDoPedidoServico } from '../../servicos/itemDoPedido/ExcluiItemDoPedidoServico'
+import { ExcluiUsuarioService } from '../../servicos/usuario/ExcluiUsuarioService'
 
 class ExcluiUsuarioControle {
     async handle(req: Request, res: Response) {
         const usuarioID = req.query.usuarioID as string
 
-        const excluiItemDoPedidoServico = new ExcluiItemDoPedidoServico()
-        const usuario = await excluiItemDoPedidoServico.execute({ usuarioID })
+        const excluiUsuarioService = new ExcluiUsuarioService()
+        const usuario = await excluiUsuarioService.execute({ usuarioID })
 
         return res.json(usuario)
     }

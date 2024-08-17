@@ -1,26 +1,40 @@
 import prismaclient from "../../prisma";
 
-interface DadosDoUsuario {
-    usuarioID: string;
+interface DadosDoItemDoPedido {
+    itemDoPedidoID: string;
 }
 
 class ExcluiItemDoPedidoServico {
-    async execute({ usuarioID }: DadosDoUsuario) {
+    async execute({ itemDoPedidoID }: DadosDoItemDoPedido) {
 
-        const itemDoPedidoEncontrado = await prismaclient.usuario.findFirst({
+        const itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findFirst({
             where: {
-                id: usuarioID
+                id: itemDoPedidoID
             }
         })
 
         if (itemDoPedidoEncontrado) {
-            await prismaclient.usuario.delete({
+            await prismaclient.itemDoPedido.delete({
                 where: {
-                    id: usuarioID
+                    id: itemDoPedidoID
                 }
             })
         }
 
+        const ordemDeCompraEncontrada = await prismaclient.ordemDeCompra.findFirst({
+            where: {
+                id: itemDoPedidoEncontrado.ordemDeCompraID
+            }
+        })
+
+        await prismaclient.ordemDeCompra.updateMany({
+            where: {
+                id: itemDoPedidoEncontrado.ordemDeCompraID
+            },
+            data: {
+                totalDaNota: ordemDeCompraEncontrada.totalDaNota -  itemDoPedidoEncontrado.valorUnitario,
+            }
+        })
     }
 }
 

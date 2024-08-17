@@ -6,7 +6,7 @@ class ExcluiItemDoPedidoControle {
         const itemDoPedidoID = req.query.itemDoPedidoID as string
 
         const excluiItemDoPedidoServico = new ExcluiItemDoPedidoServico()
-        const itemDoPedido = await excluiItemDoPedidoServico.execute({ usuarioID: itemDoPedidoID })
+        const itemDoPedido = await excluiItemDoPedidoServico.execute({ itemDoPedidoID })
 
         return res.json(itemDoPedido)
     }
