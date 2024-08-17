@@ -18,7 +18,8 @@ class LoginUsuarioServico {
                 data: {
                     cargo: 'Socio',
                     nome: 'Wilson Ramos',
-                    senha: await hash('465437', 8)
+                    senha: await hash('465437', 8),
+                    matricula:'03'
                 },
             })
         }
