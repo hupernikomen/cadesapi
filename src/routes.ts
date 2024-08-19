@@ -51,7 +51,7 @@ router.get('/busca/cor', new BuscaCorControle().handle)
 router.get('/busca/ordemDeCompra', new BuscaOrdemDeCompraControle().handle)
 router.get('/lista/usuarios', new ListaUsuariosControle().handle)
 
-router.delete('/deleta/ordemDeCompra', Gerente, new ExcluiOrdemDeCompraControle().handle)
+router.delete('/deleta/ordemDeCompra',  new ExcluiOrdemDeCompraControle().handle)
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
 router.delete('/deleta/produto', Socio, new ExcluiProdutoControle().handle)
 router.delete('/cancelaCompra', Socio, new CancelaOrdemDeCompraControle().handle)

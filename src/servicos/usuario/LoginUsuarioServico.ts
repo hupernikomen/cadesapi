@@ -19,7 +19,7 @@ class LoginUsuarioServico {
                     cargo: 'Socio',
                     nome: 'Wilson Ramos',
                     senha: await hash('465437', 8),
-                    matricula:'03'
+                    matricula:'21'
                 },
             })
         }
