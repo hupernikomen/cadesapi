@@ -20,16 +20,20 @@ class BuscaOrdemDeCompraServico {
 
         formaDePagamento: true,
         observacao: true,
-        itemDoPedido: { select: { quantidade: true, valorUnitario: true, produto: true } },
+        itemDoPedido: { select: { quantidade: true, valorUnitario: true, produto: {select:{codigoDeBarras:true,cor:{select:{id:true,nome:true}},estoque:true,
+      id:true,nome:true,referencia:true,reservado:true,
+    saida:true,tamanho:true,valorAtacado:true,valorVarejo:true}} } },
         criadoEm: true,
         estado: true,
         desconto: true,
         atualizadoEm: true,
-        cliente: { select: { nome: true } },
+        cliente: { select: { nome: true, bairro: true, cidade: true, id: true, cpf_cnpj: true, estado: true, dataNascimento: true, endereco: true, whatsapp: true } },
         totalDaNota: true,
         tempoDePagamento: true,
         valorAdiantado: true,
         valorPago: true,
+        tipo: true,
+    
 
       }
     });

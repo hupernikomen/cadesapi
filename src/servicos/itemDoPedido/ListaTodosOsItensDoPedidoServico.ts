@@ -28,22 +28,26 @@ class ListaTodosOsItensDoPedidoServico {
         ordemDeCompraID: ordemDeCompraID,
       },
       select: {
-        produto: {select: {cor:{select:{nome:true}},
-        atualizadoEm:true,
-        codigoDeBarras:true,
-        criadoEm:true,
-        estoque:true,
-        id:true,
-        itemDoPedido:true,
-        nome:true,
-        referencia:true,
-        reservado:true,
-        saida:true,
-        tamanho:true,
-        valorAtacado:true,
-        valorVarejo:true
-      }},
-        
+        produto: {
+          select: {
+            cor: { select: { nome: true } },
+            atualizadoEm: true,
+            codigoDeBarras: true,
+            criadoEm: true,
+            estoque: true,
+            id: true,
+            itemDoPedido: true,
+            nome: true,
+            referencia: true,
+            reservado: true,
+            saida: true,
+            tamanho: true,
+            valorAtacado: true,
+            valorVarejo: true,
+
+          }
+        },
+
         id: true,
         criadoEm: true,
         valorUnitario: true,

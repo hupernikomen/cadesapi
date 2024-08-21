@@ -4,11 +4,12 @@ interface DadosDaCompra {
     clienteID: string;
     usuarioID: string,
     formaDePagamento: string,
-    desconto: number
+    desconto: number,
+    tipo: string
 }
 
 class CriaOrdemDeCompraServico {
-    async execute({ clienteID, usuarioID, formaDePagamento, desconto }: DadosDaCompra) {
+    async execute({ clienteID, usuarioID, formaDePagamento, desconto, tipo }: DadosDaCompra) {
 
         const clienteEncontrado = await prismaclient.cliente.findFirst({
             where: {
@@ -26,7 +27,8 @@ class CriaOrdemDeCompraServico {
                 clienteID,
                 usuarioID,
                 formaDePagamento,
-                desconto
+                desconto,
+                tipo
             },
 
         })

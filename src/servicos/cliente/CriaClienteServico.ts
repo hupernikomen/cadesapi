@@ -8,11 +8,13 @@ interface DadosDoCliente {
     cidade: string;
     estado: string;
     whatsapp: string;
-    dataNascimento: string
+    dataNascimento: string;
+    inscricaoEstadualRg: string;
+    CEP: string
 }
 
 class CriaClienteServico {
-    async execute({ cpf_cnpj, nome, endereco, bairro, cidade, estado, whatsapp, dataNascimento }: DadosDoCliente) {
+    async execute({ cpf_cnpj, nome, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP }: DadosDoCliente) {
 
         const clienteEncontrado = await prismaclient.cliente.findFirst({
             where: {
@@ -33,7 +35,9 @@ class CriaClienteServico {
                 cidade, 
                 estado: estado.toUpperCase(),
                 whatsapp, 
-                dataNascimento
+                dataNascimento,
+                inscricaoEstadualRg, 
+                CEP
             }
         })
 

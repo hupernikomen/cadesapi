@@ -19,10 +19,15 @@ class CriaItemDoPedidoServico {
             throw new Error("Produto não cadastrado");
         }
 
+        const ordemDeCompra = await prismaclient.ordemDeCompra.findFirst({
+            where: {
+                id: ordemDeCompraID
+            }
+        })
+
 
         if((produtoEncontrado.estoque - (produtoEncontrado.reservado + produtoEncontrado.saida)) < quantidade) {
             throw new Error("Estoque Insuficiente");
-            
         }
 
 
@@ -31,7 +36,7 @@ class CriaItemDoPedidoServico {
                 quantidade,
                 produtoID: produtoID,
                 ordemDeCompraID: ordemDeCompraID,
-                valorUnitario: parseFloat(produtoEncontrado.valorAtacado.replace(',', '.')),
+                valorUnitario: parseFloat(ordemDeCompra.tipo === 'Atacado' ? produtoEncontrado.valorAtacado.replace(',', '.') : produtoEncontrado.valorVarejo.replace(',', '.')),
             }
         })
 

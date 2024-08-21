@@ -19,9 +19,7 @@ class ListaTodasAsOrdensDeCompraServico {
         tempoDePagamento:true,
         valorAdiantado:true,
         valorPago:true,
-        cliente: {
-          select: { nome: true }
-        },
+        cliente: { select: { nome: true, bairro: true, cidade: true, id: true, cpf_cnpj: true, estado: true, dataNascimento: true, endereco: true, whatsapp: true } },
         desconto:true,
         itemDoPedido: { select: {quantidade:true, produto: { select: { _count: true } }, valorUnitario: true } },
       },
