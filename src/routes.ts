@@ -23,6 +23,7 @@ import { BuscaCorControle } from './controles/cor/BuscaCorControle';
 import { BuscaOrdemDeCompraControle } from './controles/ordemDeCompra/BuscaOrdemDeCompraControle';
 import { ListaUsuariosControle } from './controles/usuario/ListaUsuariosControle';
 import { ExcluiProdutoControle } from './controles/produto/ExcluiProdutoControle';
+import { ExcluiCorControle } from './controles/cor/ExcluiCorControle';
 
 
 import { Socio } from './intermediarios/socio';
@@ -56,6 +57,7 @@ router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().
 router.delete('/deleta/produto', Socio, new ExcluiProdutoControle().handle)
 router.delete('/cancelaCompra', Socio, new CancelaOrdemDeCompraControle().handle)
 router.delete('/deleta/usuario', Socio, new ExcluiUsuarioControle().handle)
+router.delete('/deleta/cor', Socio, new ExcluiCorControle().handle)
 
 router.put('/atualiza/ordemDeCompra', Logado, new AtualizaOrdemDeCompraControle().handle)
 router.put('/atualiza/estoque', Logado, new AtualizaEstoqueDoProdutoControle().handle)
