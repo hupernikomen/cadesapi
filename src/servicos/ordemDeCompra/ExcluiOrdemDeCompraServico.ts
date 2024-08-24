@@ -15,13 +15,18 @@ class ExcluiOrdemDeCompraServico {
         })
 
         itensDoPedidoEncontrado.forEach(async(item) => {
-            await prismaclient.itemDoPedido.delete({
-                where: {
-                    id: item.id,
-                    quantidade: 0
-                    
-                }
-            })
+            try {
+                await prismaclient.itemDoPedido.delete({
+                    where: {
+                        id: item.id,
+                        quantidade: 0
+                    }
+                })
+            } catch (error) {
+                console.log(error.response);
+                
+            }
+          
         })
 
 

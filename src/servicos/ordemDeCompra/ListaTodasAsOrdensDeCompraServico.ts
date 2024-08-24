@@ -15,6 +15,7 @@ class ListaTodasAsOrdensDeCompraServico {
         estado: true,
         formaDePagamento: true,
         totalDaNota: true,
+        tipo:true,
         observacao: true,
         tempoDePagamento: true,
         valorAdiantado: true,
