@@ -1,14 +1,14 @@
 import prismaClient from '../../prisma';
 
 interface DadosDoProduto {
-    referencia: string;
+    codigoDeBarras: string;
 }
 
-class BuscaProdutoPorReferenciaServico {
-    async execute({ referencia }: DadosDoProduto) {
+class BuscaProdutoPorCodigoServico {
+    async execute({ codigoDeBarras }: DadosDoProduto) {
         return await prismaClient.produto.findMany({
             where: {
-                referencia: referencia,
+                codigoDeBarras: codigoDeBarras,
             },
             select: {
                 cor: { select: { nome: true, codigo: true, id: true } },
@@ -30,4 +30,4 @@ class BuscaProdutoPorReferenciaServico {
     }
 }
 
-export { BuscaProdutoPorReferenciaServico };
+export { BuscaProdutoPorCodigoServico };

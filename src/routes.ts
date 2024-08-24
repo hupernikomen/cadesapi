@@ -26,6 +26,8 @@ import { ExcluiProdutoControle } from './controles/produto/ExcluiProdutoControle
 import { ExcluiCorControle } from './controles/cor/ExcluiCorControle';
 import { AtualizaClienteControle } from './controles/cliente/AtualizaClienteControle';
 import { ExcluiUsuarioControle } from './controles/usuario/ExcluiUsuarioControle';
+import { AtualizaProdutoControle } from './controles/produto/AtualizaProdutoControle';
+import { BuscaProdutoPorCodigoControle } from './controles/produto/BuscaProdutoPorCodigoControle';
 
 
 import { Socio } from './intermediarios/socio';
@@ -48,6 +50,7 @@ router.get('/lista/clientes', new ListaTodosOsClientesControle().handle)
 router.get('/busca/itemDoPedido', new ListaTodosOsItensDoPedidoControle().handle)
 router.get('/lista/produtos', new ListaTodosOsProdutosControle().handle)
 router.get('/busca/produto/referencia', new BuscaProdutoPorReferenciaControle().handle)
+router.get('/busca/produto/codigo', new BuscaProdutoPorCodigoControle().handle)
 router.get('/listaCores', new ListaCorControle().handle)
 router.get('/busca/cor', new BuscaCorControle().handle)
 router.get('/busca/ordemDeCompra', new BuscaOrdemDeCompraControle().handle)
@@ -64,5 +67,6 @@ router.put('/atualiza/ordemDeCompra', Logado, new AtualizaOrdemDeCompraControle(
 router.put('/atualiza/estoque', Logado, new AtualizaEstoqueDoProdutoControle().handle)
 router.put('/atualiza/itemDoPedido', Logado, new AtualizaItemDoPedidoControle().handle)
 router.put('/atualiza/cliente', Gerente, new AtualizaClienteControle().handle)
+router.put('/atualiza/produto', Gerente, new AtualizaProdutoControle().handle)
 
 export { router };
