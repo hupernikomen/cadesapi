@@ -17,7 +17,6 @@ class BuscaOrdemDeCompraServico {
           select: { id: true, nome: true, cargo: true }
         },
         id: true,
-
         formaDePagamento: true,
         observacao: true,
         itemDoPedido: {
@@ -35,12 +34,13 @@ class BuscaOrdemDeCompraServico {
         estado: true,
         desconto: true,
         atualizadoEm: true,
-        cliente: { select: { nome: true, bairro: true, cidade: true, id: true, cpf_cnpj: true, estado: true, dataNascimento: true, endereco: true, whatsapp: true } },
+        cliente: { select: { nome: true, bairro: true, cidade: true, id: true, cpf_cnpj: true, estado: true, dataNascimento: true, endereco: true, whatsapp: true, CEP: true } },
         totalDaNota: true,
         tempoDePagamento: true,
         valorAdiantado: true,
         valorPago: true,
         tipo: true,
+
 
 
       }

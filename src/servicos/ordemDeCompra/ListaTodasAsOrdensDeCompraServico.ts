@@ -11,17 +11,17 @@ class ListaTodasAsOrdensDeCompraServico {
         },
         id: true,
         criadoEm: true,
-        atualizadoEm:true,
+        atualizadoEm: true,
         estado: true,
         formaDePagamento: true,
-        totalDaNota:true,
+        totalDaNota: true,
         observacao: true,
-        tempoDePagamento:true,
-        valorAdiantado:true,
-        valorPago:true,
-        cliente: { select: { nome: true, bairro: true, cidade: true, id: true, cpf_cnpj: true, estado: true, dataNascimento: true, endereco: true, whatsapp: true } },
-        desconto:true,
-        itemDoPedido: { select: {quantidade:true, produto: { select: { _count: true } }, valorUnitario: true } },
+        tempoDePagamento: true,
+        valorAdiantado: true,
+        valorPago: true,
+        cliente: { select: { nome: true, bairro: true, cidade: true, id: true, cpf_cnpj: true, estado: true, dataNascimento: true, endereco: true, whatsapp: true, CEP: true } },
+        desconto: true,
+        itemDoPedido: { select: { quantidade: true, produto: { select: { _count: true } }, valorUnitario: true } },
       },
       // orderBy: {
       //   criadoEm: 'desc' // ou 'desc' para ordenar em ordem decrescente
@@ -30,7 +30,7 @@ class ListaTodasAsOrdensDeCompraServico {
 
 
     return ordemDeCompra
-    
+
 
   }
 }
