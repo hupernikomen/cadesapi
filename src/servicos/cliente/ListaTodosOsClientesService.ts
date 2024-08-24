@@ -5,7 +5,7 @@ class ListaTodosOsClientesService {
     return await prismaClient.cliente.findMany({
       where:{
         cpf_cnpj: {
-          not: '15.302.980/0001-54'
+          not: '000.000.000-00'
         }
       }
     });

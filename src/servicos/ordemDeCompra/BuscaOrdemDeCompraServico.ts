@@ -20,9 +20,17 @@ class BuscaOrdemDeCompraServico {
 
         formaDePagamento: true,
         observacao: true,
-        itemDoPedido: { select: { quantidade: true, valorUnitario: true, produto: {select:{codigoDeBarras:true,cor:{select:{id:true,nome:true}},estoque:true,
-      id:true,nome:true,referencia:true,reservado:true,
-    saida:true,tamanho:true,valorAtacado:true,valorVarejo:true}} } },
+        itemDoPedido: {
+          select: {
+            quantidade: true, valorUnitario: true, produto: {
+              select: {
+                codigoDeBarras: true, cor: { select: { id: true, nome: true } }, estoque: true,
+                id: true, nome: true, referencia: true, reservado: true,
+                saida: true, tamanho: true, valorAtacado: true, valorVarejo: true
+              }
+            }
+          }
+        },
         criadoEm: true,
         estado: true,
         desconto: true,
@@ -33,7 +41,7 @@ class BuscaOrdemDeCompraServico {
         valorAdiantado: true,
         valorPago: true,
         tipo: true,
-    
+
 
       }
     });

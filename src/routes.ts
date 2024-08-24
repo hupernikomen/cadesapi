@@ -24,12 +24,13 @@ import { BuscaOrdemDeCompraControle } from './controles/ordemDeCompra/BuscaOrdem
 import { ListaUsuariosControle } from './controles/usuario/ListaUsuariosControle';
 import { ExcluiProdutoControle } from './controles/produto/ExcluiProdutoControle';
 import { ExcluiCorControle } from './controles/cor/ExcluiCorControle';
+import { AtualizaClienteControle } from './controles/cliente/AtualizaClienteControle';
+import { ExcluiUsuarioControle } from './controles/usuario/ExcluiUsuarioControle';
 
 
 import { Socio } from './intermediarios/socio';
 import { Gerente } from './intermediarios/gerente';
 import { Logado } from './intermediarios/logado';
-import { ExcluiUsuarioControle } from './controles/usuario/ExcluiUsuarioControle';
 
 const router = Router();
 
@@ -62,5 +63,6 @@ router.delete('/deleta/cor', Socio, new ExcluiCorControle().handle)
 router.put('/atualiza/ordemDeCompra', Logado, new AtualizaOrdemDeCompraControle().handle)
 router.put('/atualiza/estoque', Logado, new AtualizaEstoqueDoProdutoControle().handle)
 router.put('/atualiza/itemDoPedido', Logado, new AtualizaItemDoPedidoControle().handle)
+router.put('/atualiza/cliente', Gerente, new AtualizaClienteControle().handle)
 
 export { router };
