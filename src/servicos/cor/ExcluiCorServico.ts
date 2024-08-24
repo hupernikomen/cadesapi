@@ -13,9 +13,6 @@ class ExcluiCorServico {
             }
         })
 
-        console.log(corEncontrada);
-        
-
         if (corEncontrada) {
             await prismaclient.cor.delete({
                 where: {
