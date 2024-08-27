@@ -8,6 +8,8 @@ class ExcluiOrdemDeCompraServico {
     async execute({ ordemDeCompraID }: DadosDaOrdemDeCompra) {
 
 
+
+
         const itensDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({
             where:{
                 ordemDeCompraID: ordemDeCompraID
@@ -32,6 +34,7 @@ class ExcluiOrdemDeCompraServico {
 
         await prismaclient.ordemDeCompra.delete({
             where: {
+
                 id: ordemDeCompraID
             }
         })

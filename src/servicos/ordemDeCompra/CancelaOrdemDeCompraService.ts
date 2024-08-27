@@ -7,30 +7,38 @@ interface StockRequest {
 class CancelaOrdemDeCompraService {
     async execute({ ordemDeCompraID }: StockRequest) {
 
+        const ordemDeCompraEncontrado = await prismaclient.ordemDeCompra.findFirst({
+            where: {
+                id: ordemDeCompraID
+            }
+        })
+
         // BUSCA TODOS OS ITENS DA ORDEM DE COMPRA A SEREM CANCELADOS
         const itensParaCancelamento = await prismaclient.itemDoPedido.findMany({
-            where:{
+            where: {
                 ordemDeCompraID: ordemDeCompraID
             }
         })
 
         // VARRE UM A UM OS ITENS, ENCONTRA OS PRODUTOS REFERENTES E ATUALIZA O ESTOQUE RESERVADO
-        itensParaCancelamento.forEach(async(item) => {
+        itensParaCancelamento.forEach(async (item) => {
             const produto = await prismaclient.produto.findFirst({
                 where: {
                     id: item.produtoID
                 }
             })
 
-            await prismaclient.produto.updateMany({
-                where: {
-                    id: item.produtoID
-                },
-                data: {
-                    reservado: produto.reservado -  item.quantidade
-                }
-            })
+            if (ordemDeCompraEncontrado.estado !== 'Aberto') {
+                await prismaclient.produto.updateMany({
+                    where: {
+                        id: item.produtoID
+                    },
+                    data: {
+                        reservado: produto.reservado - item.quantidade
+                    }
+                })
 
+            }
 
 
             await prismaclient.itemDoPedido.delete({
@@ -41,12 +49,6 @@ class CancelaOrdemDeCompraService {
 
 
         })
-
-
-        
-
-
-
     }
 }
 
