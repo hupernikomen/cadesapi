@@ -1,15 +1,15 @@
 import prismaClient from '../../prisma';
 
 interface DadosDoCliente {
-    cpf_cnpj: string
+    clienteID: string
 }
 
 class BuscaClienteServico {
-    async execute({ cpf_cnpj }: DadosDoCliente) {
+    async execute({ clienteID }: DadosDoCliente) {
         
         return await prismaClient.cliente.findFirst({
             where: {
-                cpf_cnpj: cpf_cnpj
+                id: clienteID
             }
         });
     }

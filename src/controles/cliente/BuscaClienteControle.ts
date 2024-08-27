@@ -4,11 +4,11 @@ import { BuscaClienteServico } from '../../servicos/cliente/BuscaClienteServico'
 
 class BuscaClienteControle {
     async handle(req: Request, res: Response) {
-        const cpf_cnpj = req.query.cpf_cnpj as string
+        const clienteID = req.query.clienteID as string
 
         const buscaClienteServico = new BuscaClienteServico()
 
-        const oCliente = await buscaClienteServico.execute({ cpf_cnpj })
+        const oCliente = await buscaClienteServico.execute({ clienteID })
         return res.json(oCliente)
 
     }
