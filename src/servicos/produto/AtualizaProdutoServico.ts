@@ -4,12 +4,14 @@ interface DadosDoProduto {
     valorAtacado: string;
     valorVarejo: string,
     nome: string,
-    produtoID: string
+    produtoID: string,
+    reservado:number,
+    saida: number
 }
 
 // Movimentação para retirada definitiva do estoque
 class AtualizaProdutoServico {
-    async execute({ produtoID, nome, valorAtacado, valorVarejo }: DadosDoProduto) {
+    async execute({ produtoID, nome, valorAtacado, valorVarejo, reservado, saida }: DadosDoProduto) {
 
         await prismaclient.produto.updateMany({
             where: {
@@ -18,7 +20,7 @@ class AtualizaProdutoServico {
             data: {
                 nome,
                 valorAtacado,
-                valorVarejo
+                valorVarejo, reservado, saida
             }
         })
 
