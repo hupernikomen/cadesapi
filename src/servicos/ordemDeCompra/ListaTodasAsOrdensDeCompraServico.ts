@@ -24,9 +24,9 @@ class ListaTodasAsOrdensDeCompraServico {
         desconto: true,
         itemDoPedido: { select: { quantidade: true, produto: { select: { _count: true } }, valorUnitario: true } },
       },
-      // orderBy: {
-      //   criadoEm: 'desc' // ou 'desc' para ordenar em ordem decrescente
-      // }
+      orderBy: {
+        criadoEm: 'desc' // ou 'desc' para ordenar em ordem decrescente
+      }
     });
 
 
