@@ -31,6 +31,7 @@ class AtualizaEstoqueDoProdutoService {
                 })
 
                 break;
+                
             case "Criado":
                 await prismaclient.ordemDeCompra.updateMany({
                     where: { id: ordemDeCompraID },
