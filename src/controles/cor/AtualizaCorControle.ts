@@ -5,10 +5,10 @@ class AtualizaCorControle {
     async handle(req: Request, res: Response) {
         const corID = req.query.corID as string
 
-        const { corHexa } = req.body
+        const { corHexa, nome } = req.body
 
         const atualizarCorServico = new AtualizarCorServico()
-        const itemDoPedidoAtualizado = await atualizarCorServico.execute({ corHexa, corID })
+        const itemDoPedidoAtualizado = await atualizarCorServico.execute({ corHexa,nome, corID })
 
         return res.json(itemDoPedidoAtualizado)
     }
