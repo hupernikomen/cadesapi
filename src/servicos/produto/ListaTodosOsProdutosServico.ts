@@ -4,7 +4,7 @@ class ListaTodosOsProdutosServico {
   async execute() {
     return await prismaClient.produto.findMany({
       select: {
-        cor: { select: { nome: true } },
+        cor: { select: { nome: true, corHexa:true, } },
         atualizadoEm: true,
         codigoDeBarras: true,
         criadoEm: true,
