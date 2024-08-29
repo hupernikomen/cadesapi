@@ -11,7 +11,7 @@ class BuscaProdutoPorReferenciaServico {
                 referencia: referencia,
             },
             select: {
-                cor: { select: { nome: true, codigo: true, id: true } },
+                cor: { select: { nome: true, codigo: true, id: true,corHexa:true } },
                 codigoDeBarras: true,
                 estoque: true,
                 id: true,
