@@ -2,11 +2,12 @@ import prismaclient from "../../prisma";
 
 interface DadosCor {
     nome: string;
-    codigo: string
+    codigo: string,
+    corHexa: string
 }
 
 class CriaCorServico {
-    async execute({ nome, codigo }: DadosCor) {
+    async execute({ nome, codigo, corHexa }: DadosCor) {
 
         const corEncontrada = await prismaclient.cor.findFirst({
             where: {
@@ -24,7 +25,8 @@ class CriaCorServico {
         const corCriada = await prismaclient.cor.create({
             data: {
                 nome,
-                codigo
+                codigo,
+                corHexa
             }
         })
 

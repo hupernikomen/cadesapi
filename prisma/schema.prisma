@@ -106,19 +106,12 @@ model ItemDoPedido {
 }
 
 model Cor {
-  id     String @id @default(uuid())
+  id     String  @id @default(uuid())
   nome   String
   codigo String
+  corHexa    String?
 
   produto Produto[]
 
   @@map("cores")
-}
-
-model BancoDeHoras {
-  id String @id @default(uuid())
-
-  codigo String
-
-  @@map("bancodehoras")
 }

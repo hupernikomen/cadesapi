@@ -7,6 +7,7 @@ class ListaCorServico {
         id: true,
         codigo: true,
         nome: true,
+        corHexa:true,
         produto: { select: { estoque: true, saida: true } }
       }
     });
