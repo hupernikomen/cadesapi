@@ -48,6 +48,7 @@ model Cliente {
   id                  String    @id @default(uuid())
   cpf_cnpj            String
   inscricaoEstadualRg String?
+  nomeFantasia        String?
   nome                String
   endereco            String
   bairro              String
@@ -67,6 +68,7 @@ model OrdemDeCompra {
   id String @id @default(uuid())
 
   tipo             String? // Atacado ou Varejo
+  origem           String? @default("App") //App ou Online
   estado           String  @default("Aberto") // Criado Separado Entregue
   formaDePagamento String?
   tempoDePagamento String?
@@ -106,10 +108,10 @@ model ItemDoPedido {
 }
 
 model Cor {
-  id     String  @id @default(uuid())
-  nome   String
-  codigo String
-  corHexa    String?
+  id      String  @id @default(uuid())
+  nome    String
+  codigo  String
+  corHexa String?
 
   produto Produto[]
 

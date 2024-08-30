@@ -3,6 +3,7 @@ import prismaclient from "../../prisma";
 interface DadosDoCliente {
     cpf_cnpj: string;
     nome: string;
+    nomeFantasia: string;
     endereco: string;
     bairro: string;
     cidade: string;
@@ -14,7 +15,7 @@ interface DadosDoCliente {
 }
 
 class CriaClienteServico {
-    async execute({ cpf_cnpj, nome, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP }: DadosDoCliente) {
+    async execute({ cpf_cnpj, nome, nomeFantasia, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP }: DadosDoCliente) {
 
         const clienteEncontrado = await prismaclient.cliente.findFirst({
             where: {
@@ -30,6 +31,7 @@ class CriaClienteServico {
             data: {
                 cpf_cnpj, 
                 nome, 
+                nomeFantasia,
                 endereco, 
                 bairro, 
                 cidade, 

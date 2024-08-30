@@ -5,10 +5,10 @@ class AtualizaClienteControle {
     async handle(req: Request, res: Response) {
         const clienteID = req.query.clienteID as string
 
-        const { cpf_cnpj, nome, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP } = req.body
+        const { cpf_cnpj, nome, nomeFantasia, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP } = req.body
 
         const atualizaClienteServico = new AtualizaClienteServico()
-        const itemDoPedidoAtualizado = await atualizaClienteServico.execute({ cpf_cnpj, nome, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP, clienteID })
+        const itemDoPedidoAtualizado = await atualizaClienteServico.execute({ cpf_cnpj, nome, nomeFantasia, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP, clienteID })
 
         return res.json(itemDoPedidoAtualizado)
     }
