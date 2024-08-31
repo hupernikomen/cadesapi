@@ -29,7 +29,7 @@ import { ExcluiUsuarioControle } from './controles/usuario/ExcluiUsuarioControle
 import { AtualizaProdutoControle } from './controles/produto/AtualizaProdutoControle';
 import { BuscaProdutoPorCodigoControle } from './controles/produto/BuscaProdutoPorCodigoControle';
 import { AtualizaCorControle } from './controles/cor/AtualizaCorControle';
-
+import { AtualizaProdutoEmMassaControle } from './controles/produto/AtualizaProdutoEmMassaControle';
 
 import { Socio } from './intermediarios/socio';
 import { Gerente } from './intermediarios/gerente';
@@ -70,5 +70,6 @@ router.put('/atualiza/itemDoPedido', Logado, new AtualizaItemDoPedidoControle().
 router.put('/atualiza/cliente', Gerente, new AtualizaClienteControle().handle)
 router.put('/atualiza/produto', Gerente, new AtualizaProdutoControle().handle)
 router.put('/atualiza/cor', Socio, new AtualizaCorControle().handle)
+router.put('/atualiza/produtosEmMassa', Socio, new AtualizaProdutoEmMassaControle().handle)
 
 export { router };
