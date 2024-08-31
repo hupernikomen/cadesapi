@@ -28,6 +28,7 @@ model Produto {
   codigoDeBarras String
   referencia     String
   nome           String
+  detalhes       String?
   tamanho        String
   estoque        Int
   saida          Int?      @default(0)

@@ -3,12 +3,12 @@ import { CriaProdutoServico } from '../../servicos/produto/CriaProdutoServico'
 
 class CriaProdutoControle {
     async handle(req: Request, res: Response) {
-        const { codigoDeBarras, referencia, nome, corID, tamanho, estoque, valorAtacado, valorVarejo } = req.body
+        const { codigoDeBarras, referencia, nome, detalhes, corID, tamanho, estoque, valorAtacado, valorVarejo } = req.body
 
         const criaProdutoServico = new CriaProdutoServico()
 
         const produto = await criaProdutoServico.execute({
-            codigoDeBarras, referencia, nome, corID, tamanho, estoque, valorAtacado, valorVarejo
+            codigoDeBarras, referencia, nome, detalhes, corID, tamanho, estoque, valorAtacado, valorVarejo
         })
 
         return res.json(produto)

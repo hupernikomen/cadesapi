@@ -9,6 +9,7 @@ class ListaTodosOsProdutosServico {
         codigoDeBarras: true,
         criadoEm: true,
         nome: true,
+        detalhes: true,
         referencia: true,
         valorAtacado: true,
         valorVarejo: true,

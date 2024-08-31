@@ -16,6 +16,7 @@ class BuscaProdutoPorReferenciaServico {
                 estoque: true,
                 id: true,
                 nome: true,
+                detalhes: true,
                 itemDoPedido: true,
                 referencia: true,
                 reservado: true,
