@@ -14,7 +14,6 @@ interface ProductRequest {
 
 class CriaProdutoServico {
     async execute({ codigoDeBarras, referencia, nome, detalhes, corID, tamanho, estoque, valorAtacado, valorVarejo }: ProductRequest) {
-        const formattedNome = nome.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
         const produtoEncontrado = await prismaclient.produto.findFirst({
             where: { codigoDeBarras: codigoDeBarras }
@@ -40,7 +39,7 @@ class CriaProdutoServico {
                 data: {
                     codigoDeBarras,
                     referencia,
-                    nome: formattedNome,
+                    nome,
                     detalhes,
                     corID,
                     tamanho,
