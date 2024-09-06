@@ -41,6 +41,7 @@ class AtualizaEstoqueDoProdutoService {
 
 
                 case 'Processando':
+                case 'Criado': // TEMPORARIO
                     for (const item of itemDoPedidoEncontrado) {
 
                         const { id, produtoID, quantidade } = item
