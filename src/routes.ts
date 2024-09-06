@@ -30,6 +30,7 @@ import { AtualizaProdutoControle } from './controles/produto/AtualizaProdutoCont
 import { BuscaProdutoPorCodigoControle } from './controles/produto/BuscaProdutoPorCodigoControle';
 import { AtualizaCorControle } from './controles/cor/AtualizaCorControle';
 import { AtualizaProdutoEmMassaControle } from './controles/produto/AtualizaProdutoEmMassaControle';
+import { ListaErrosControle } from './controles/produto/ListaErrosControle';
 
 import { Socio } from './intermediarios/socio';
 import { Gerente } from './intermediarios/gerente';
@@ -56,6 +57,7 @@ router.get('/listaCores', new ListaCorControle().handle)
 router.get('/busca/cor', new BuscaCorControle().handle)
 router.get('/busca/ordemDeCompra', new BuscaOrdemDeCompraControle().handle)
 router.get('/lista/usuarios', new ListaUsuariosControle().handle)
+router.get('/listaerros', Socio, new ListaErrosControle().handle)
 
 router.delete('/deleta/ordemDeCompra',  new ExcluiOrdemDeCompraControle().handle)
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
