@@ -1,6 +1,7 @@
 import prismaclient from "../../prisma";
 
 interface SalesformRequest {
+    tipo: string;
     ordemDeCompraID: string;
     estado: string;
     totalDaNota: number,
@@ -13,7 +14,7 @@ interface SalesformRequest {
 }
 
 class AtualizaOrdemDeCompraServico {
-    async execute({ ordemDeCompraID, estado, totalDaNota, formaDePagamento, valorPago, tempoDePagamento, valorAdiantado, observacao, desconto }: SalesformRequest) {
+    async execute({ tipo, ordemDeCompraID, estado, totalDaNota, formaDePagamento, valorPago, tempoDePagamento, valorAdiantado, observacao, desconto }: SalesformRequest) {
         
 
         await prismaclient.ordemDeCompra.updateMany({
@@ -21,6 +22,7 @@ class AtualizaOrdemDeCompraServico {
                 id: ordemDeCompraID
             },
             data: {
+                tipo,
                 estado,
                 formaDePagamento,
                 totalDaNota,

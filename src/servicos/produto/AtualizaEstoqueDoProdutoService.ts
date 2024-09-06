@@ -1,4 +1,4 @@
-import prismaclient from "../../prisma";
+import prismaclient from '../../prisma';
 
 interface StockRequest {
     ordemDeCompraID: string;
@@ -7,62 +7,113 @@ interface StockRequest {
 class AtualizaEstoqueDoProdutoService {
     async execute({ ordemDeCompraID }: StockRequest) {
 
-        const ordemDeCompraEncontrado = await prismaclient.ordemDeCompra.findFirst({ where: { id: ordemDeCompraID } })
+        try {
 
-        switch (ordemDeCompraEncontrado.estado) {
-            
-            case "Aberto":
-                const itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({ where: { ordemDeCompraID: ordemDeCompraID } })
-                await prismaclient.ordemDeCompra.updateMany({
-                    where: { id: ordemDeCompraID },
-                    data: { estado: "Criado" }
-                })
-                
-                
-                itemDoPedidoEncontrado.map(async (item) => {
-                    const produtoEncontrado = await prismaclient.produto.findFirst({ where: { id: item.produtoID } })
+            const ordemDeCompraEncontrado = await prismaclient.ordemDeCompra.findFirst({
+                where: {
+                    id: ordemDeCompraID
+                }
+            })
 
-                    await prismaclient.produto.updateMany({
-                        where: { id: produtoEncontrado.id },
-                        data: {
-                            reservado: produtoEncontrado.reservado + item.quantidade,
+            if (!ordemDeCompraEncontrado) {
+                throw new Error(`Ordem de compra não encontrada`);
+            }
+
+            switch (ordemDeCompraEncontrado.estado) {
+
+                case 'Aberto':
+                    const itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({
+                        where: {
+                            ordemDeCompraID: ordemDeCompraID
                         }
                     })
-                })
 
-                break;
-                
-            case "Criado":
-                await prismaclient.ordemDeCompra.updateMany({
-                    where: { id: ordemDeCompraID },
-                    data: { estado: "Separado", atualizadoEm: new Date() }
-                })
-                break;
-
-            case "Separado":
-                await prismaclient.ordemDeCompra.updateMany({
-                    where: { id: ordemDeCompraID },
-                    data: { estado: "Entregue", atualizadoEm: new Date() }
-                })
-
-                const _itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({ where: { ordemDeCompraID: ordemDeCompraID } })
-
-                _itemDoPedidoEncontrado.map(async (item) => {
-                    const produtoEncontrado = await prismaclient.produto.findFirst({ where: { id: item.produtoID } })
-
-                    await prismaclient.produto.updateMany({
-                        where: { id: produtoEncontrado.id },
+                    await prismaclient.ordemDeCompra.update({
+                        where: {
+                            id: ordemDeCompraID
+                        },
                         data: {
-                            saida: produtoEncontrado.saida + item.quantidade,
-                            reservado: produtoEncontrado.reservado - item.quantidade
+                            estado: 'Criado'
                         }
                     })
-                })
 
-                break;
 
-            default:
-                break;
+                    for (const item of itemDoPedidoEncontrado) {
+                        const produtoEncontrado = await prismaclient.produto.findFirst({
+                            where: {
+                                id: item.produtoID
+                            }
+                        })
+
+
+                        await prismaclient.produto.update({
+                            where: {
+                                id: produtoEncontrado.id
+                            },
+                            data: {
+                                reservado: produtoEncontrado.reservado + item.quantidade,
+                            }
+                        })
+                    }
+
+                    break;
+
+                case 'Criado':
+                    await prismaclient.ordemDeCompra.updateMany({
+                        where: {
+                            id: ordemDeCompraID
+                        },
+                        data: {
+                            estado: 'Separado',
+                            atualizadoEm: new Date()
+                        }
+                    })
+                    break;
+
+                case 'Separado':
+                    await prismaclient.ordemDeCompra.updateMany({
+                        where: {
+                            id: ordemDeCompraID
+                        },
+                        data: {
+                            estado: 'Entregue',
+                            atualizadoEm: new Date()
+                        }
+                    })
+
+                    const _itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({
+                        where: {
+                            ordemDeCompraID: ordemDeCompraID
+                        }
+                    })
+
+                    for (const item of _itemDoPedidoEncontrado) {
+                        const produtoEncontrado = await prismaclient.produto.findFirst({ where: { id: item.produtoID } })
+
+                        if (!produtoEncontrado) {
+                            throw new Error(`Produto não encontrado`);
+                        }
+
+                        await prismaclient.produto.updateMany({
+                            where: {
+                                id: produtoEncontrado.id
+                            },
+                            data: {
+                                saida: produtoEncontrado.saida + item.quantidade,
+                                reservado: produtoEncontrado.reservado - item.quantidade
+                            }
+                        })
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw new Error(`Erro ao atualizar estoque: ${error.message}`)
         }
     }
 }

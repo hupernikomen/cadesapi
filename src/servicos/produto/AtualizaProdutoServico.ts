@@ -23,7 +23,9 @@ class AtualizaProdutoServico {
                 nome,
                 detalhes,
                 valorAtacado,
-                valorVarejo, reservado, saida,
+                valorVarejo, 
+                reservado, 
+                saida,
                 estoque
             }
         })
