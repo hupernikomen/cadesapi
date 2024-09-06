@@ -11,7 +11,7 @@ class ListaErrosService {
         ],
       },
       select: {
-        codigoDeBarras: true,
+        id:true,
         referencia: true,
         saida: true,
         reservado: true,
