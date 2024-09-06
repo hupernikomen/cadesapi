@@ -21,7 +21,10 @@ class CancelaOrdemDeCompraService {
         })
 
         // VARRE UM A UM OS ITENS, ENCONTRA OS PRODUTOS REFERENTES E ATUALIZA O ESTOQUE RESERVADO
-        itensParaCancelamento.forEach(async (item) => {
+        for (const item of itensParaCancelamento) {
+
+            // console.log(item, 'item para cancelamento');
+
             const produto = await prismaclient.produto.findFirst({
                 where: {
                     id: item.produtoID
@@ -29,7 +32,7 @@ class CancelaOrdemDeCompraService {
             })
 
             if (ordemDeCompraEncontrado.estado !== 'Aberto') {
-                await prismaclient.produto.updateMany({
+                await prismaclient.produto.update({
                     where: {
                         id: item.produtoID
                     },
@@ -46,9 +49,7 @@ class CancelaOrdemDeCompraService {
                     id: item.id,
                 }
             })
-
-
-        })
+        }
     }
 }
 

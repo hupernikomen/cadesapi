@@ -8,69 +8,108 @@ class AtualizaEstoqueDoProdutoService {
     async execute({ ordemDeCompraID }: StockRequest) {
 
         try {
-
+            // CAPTURA ORDEM DE COMPRA
             const ordemDeCompraEncontrado = await prismaclient.ordemDeCompra.findFirst({
                 where: {
                     id: ordemDeCompraID
                 }
             })
 
+            // VERIFICA SE ORDEM DE COMPRA EXISTE
             if (!ordemDeCompraEncontrado) {
                 throw new Error(`Ordem de compra não encontrada`);
             }
 
+            const itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({
+                where: {
+                    ordemDeCompraID: ordemDeCompraID
+                }
+            })
+            // SWITCH DE ESTADO DA ORDEM DE COMPRA 
             switch (ordemDeCompraEncontrado.estado) {
 
                 case 'Aberto':
-                    const itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({
-                        where: {
-                            ordemDeCompraID: ordemDeCompraID
-                        }
-                    })
-
                     await prismaclient.ordemDeCompra.update({
                         where: {
                             id: ordemDeCompraID
                         },
                         data: {
-                            estado: 'Criado'
+                            estado: 'Processando'
                         }
                     })
+                    break;
 
 
+                case 'Processando':
                     for (const item of itemDoPedidoEncontrado) {
-                        const produtoEncontrado = await prismaclient.produto.findFirst({
+
+                        const { id, produtoID, quantidade } = item
+
+                        await prismaclient.itemDoPedido.update({
                             where: {
-                                id: item.produtoID
+                                id: id
+                            },
+                            data: {
+                                quantidade: quantidade,
                             }
                         })
 
+                        const produtoEncontrado = await prismaclient.produto.findFirst({
+                            where: {
+                                id: produtoID
+                            }
+                        })
 
+                        // RESERVA DE PEDIDO
                         await prismaclient.produto.update({
                             where: {
-                                id: produtoEncontrado.id
+                                id: produtoID
                             },
                             data: {
-                                reservado: produtoEncontrado.reservado + item.quantidade,
+                                reservado: produtoEncontrado.reservado + quantidade,
                             }
                         })
                     }
 
-                    break;
-
-                case 'Criado':
                     await prismaclient.ordemDeCompra.updateMany({
                         where: {
                             id: ordemDeCompraID
                         },
                         data: {
-                            estado: 'Separado',
+                            estado: 'Embalado',
                             atualizadoEm: new Date()
                         }
                     })
                     break;
 
-                case 'Separado':
+
+
+
+                case 'Embalado':
+                    for (const item of itemDoPedidoEncontrado) {
+                        const { produtoID, quantidade } = item
+
+                        const produtoEncontrado = await prismaclient.produto.findFirst({
+                            where: {
+                                id: produtoID
+                            }
+                        })
+
+                        if (!produtoEncontrado) {
+                            throw new Error(`Produto não encontrado`);
+                        }
+
+                        await prismaclient.produto.updateMany({
+                            where: {
+                                id: produtoID
+                            },
+                            data: {
+                                saida: produtoEncontrado.saida + quantidade,
+                                reservado: produtoEncontrado.reservado - quantidade
+                            }
+                        })
+                    }
+
                     await prismaclient.ordemDeCompra.updateMany({
                         where: {
                             id: ordemDeCompraID
@@ -80,30 +119,6 @@ class AtualizaEstoqueDoProdutoService {
                             atualizadoEm: new Date()
                         }
                     })
-
-                    const _itemDoPedidoEncontrado = await prismaclient.itemDoPedido.findMany({
-                        where: {
-                            ordemDeCompraID: ordemDeCompraID
-                        }
-                    })
-
-                    for (const item of _itemDoPedidoEncontrado) {
-                        const produtoEncontrado = await prismaclient.produto.findFirst({ where: { id: item.produtoID } })
-
-                        if (!produtoEncontrado) {
-                            throw new Error(`Produto não encontrado`);
-                        }
-
-                        await prismaclient.produto.updateMany({
-                            where: {
-                                id: produtoEncontrado.id
-                            },
-                            data: {
-                                saida: produtoEncontrado.saida + item.quantidade,
-                                reservado: produtoEncontrado.reservado - item.quantidade
-                            }
-                        })
-                    }
 
                     break;
 

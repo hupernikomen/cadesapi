@@ -70,7 +70,7 @@ model OrdemDeCompra {
 
   tipo             String? // Atacado ou Varejo
   origem           String? @default("App") //App ou Online
-  estado           String  @default("Aberto") // Criado Separado Entregue
+  estado           String  @default("Aberto") // Processando Embalado Entregue
   formaDePagamento String?
   tempoDePagamento String?
   observacao       String?
