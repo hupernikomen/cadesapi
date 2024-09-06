@@ -11,11 +11,13 @@ class ListaErrosService {
         ],
       },
       select: {
-        id:true,
+        id: true,
         referencia: true,
         saida: true,
         reservado: true,
         estoque: true,
+        cor: { select: { nome: true } },
+        tamanho:true
       }
     });
   }
