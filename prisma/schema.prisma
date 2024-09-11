@@ -98,9 +98,9 @@ model ItemDoPedido {
   quantidade    Int
   valorUnitario Float
 
-  produto         Produto       @relation(fields: [produtoID], references: [id])
+  produto         Produto?       @relation(fields: [produtoID], references: [id])
   produtoID       String
-  ordemDeCompra   OrdemDeCompra @relation(fields: [ordemDeCompraID], references: [id])
+  ordemDeCompra   OrdemDeCompra? @relation(fields: [ordemDeCompraID], references: [id])
   ordemDeCompraID String
 
   criadoEm DateTime? @default(now())

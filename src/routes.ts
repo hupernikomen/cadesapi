@@ -35,6 +35,7 @@ import { ListaErrosControle } from './controles/produto/ListaErrosControle';
 import { Socio } from './intermediarios/socio';
 import { Gerente } from './intermediarios/gerente';
 import { Logado } from './intermediarios/logado';
+import { BuscaItemDoPedidoControle } from './controles/itemDoPedido/BuscaItemDoPedidoControle';
 
 const router = Router();
 
@@ -50,6 +51,7 @@ router.get('/lista/ordemDeCompras', new ListaTodasAsOrdensDeCompraControle().han
 router.get('/busca/cliente', new BuscaClienteControle().handle)
 router.get('/lista/clientes', new ListaTodosOsClientesControle().handle)
 router.get('/busca/itemDoPedido', new ListaTodosOsItensDoPedidoControle().handle)
+router.get('/busca/itensDoPedido', new BuscaItemDoPedidoControle().handle)
 router.get('/lista/produtos', new ListaTodosOsProdutosControle().handle)
 router.get('/busca/produto/referencia', new BuscaProdutoPorReferenciaControle().handle)
 router.get('/busca/produto/codigo', new BuscaProdutoPorCodigoControle().handle)
@@ -68,7 +70,7 @@ router.delete('/deleta/cor', Socio, new ExcluiCorControle().handle)
 
 router.put('/atualiza/ordemDeCompra', Logado, new AtualizaOrdemDeCompraControle().handle)
 router.put('/atualiza/estoque', Logado, new AtualizaEstoqueDoProdutoControle().handle)
-router.put('/atualiza/itemDoPedido', Logado, new AtualizaItemDoPedidoControle().handle)
+router.put('/atualiza/itemDoPedido', Gerente, new AtualizaItemDoPedidoControle().handle)
 router.put('/atualiza/cliente', Gerente, new AtualizaClienteControle().handle)
 router.put('/atualiza/produto', Gerente, new AtualizaProdutoControle().handle)
 router.put('/atualiza/cor', Socio, new AtualizaCorControle().handle)

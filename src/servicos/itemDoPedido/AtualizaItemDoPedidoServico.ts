@@ -44,20 +44,6 @@ class AtualizaItemDoPedidoServico {
             }
         })
 
-        // await prismaclient.produto.update({
-        //     where: {
-        //         id: produtoID
-        //     },
-        //     data: {
-        //         reservado: produtoEncontrado.reservado + quantidade
-        //     }
-        // })
-
-        // console.log(produtoID, 'id');
-        // console.log(produtoEncontrado, 'qtd');
-        // console.log(quantidade, 'qtd');
-        
-
 
 
     }

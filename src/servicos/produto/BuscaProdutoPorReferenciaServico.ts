@@ -25,7 +25,8 @@ class BuscaProdutoPorReferenciaServico {
                 valorAtacado: true,
                 valorVarejo: true,
                 atualizadoEm: true,
-                criadoEm: true
+                criadoEm: true,
+                
             }
         });
     }
