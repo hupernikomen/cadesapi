@@ -34,12 +34,11 @@ class AtualizaItemDoPedidoServico {
         }
 
 
-        await prismaclient.itemDoPedido.updateMany({
+        await prismaclient.itemDoPedido.update({
             where: {
                 id: itemDoPedidoID,
             },
             data: {
-                produtoID: produtoID,
                 quantidade: quantidade,
             }
         })

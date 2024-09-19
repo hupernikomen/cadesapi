@@ -71,26 +71,44 @@ model OrdemDeCompra {
   tipo             String? // Atacado ou Varejo
   origem           String? @default("App") //App ou Online
   estado           String  @default("Aberto") // Processando Embalado Entregue
-  formaDePagamento String?
-  tempoDePagamento String?
-  observacao       String?
+  formaDePagamento String? //Obsoleto
+  tempoDePagamento String? //Obsoleto
+  observacao       String? //Obsoleto
 
-  desconto       Int?
-  valorPago      Float?
-  totalDaNota    Float?
-  valorAdiantado Float?
+  desconto       Int? //Obsoleto
+  valorPago      Float? //Obsoleto
+  totalDaNota    Float? //Obsoleto
+  valorAdiantado Float? //Obsoleto
 
   itemDoPedido ItemDoPedido[]
 
   cliente   Cliente? @relation(fields: [clienteID], references: [id])
   clienteID String?
 
-  criadoEm     DateTime? @default(now())
-  atualizadoEm DateTime? @default(now())
-  usuario      Usuario?  @relation(fields: [usuarioID], references: [id])
+  criadoEm     DateTime?   @default(now())
+  atualizadoEm DateTime?   @default(now())
+  usuario      Usuario?    @relation(fields: [usuarioID], references: [id])
   usuarioID    String?
+  pagamento    Pagamento[]
 
   @@map("ordensDeCompras")
+}
+
+model Pagamento {
+  id              String  @id @default(uuid())
+  parcelas        Int     @default(0)
+  desconto        Int?
+  totalDaNota     Float
+  valorAdiantado  Float?
+  totalPago       Float
+  obs             String?
+  tipo            String
+  ordemDeCompraID String?
+
+  criadoEm      DateTime?      @default(now())
+  ordemDeCompra OrdemDeCompra? @relation(fields: [ordemDeCompraID], references: [id])
+
+  @@map("pagamentos")
 }
 
 model ItemDoPedido {

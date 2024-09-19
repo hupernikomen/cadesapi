@@ -36,6 +36,9 @@ import { Socio } from './intermediarios/socio';
 import { Gerente } from './intermediarios/gerente';
 import { Logado } from './intermediarios/logado';
 import { BuscaItemDoPedidoControle } from './controles/itemDoPedido/BuscaItemDoPedidoControle';
+import { CriaPagamentoControle } from './controles/pagamento/CriaPagamentoControle';
+import { BuscaPagamentoControle } from './controles/pagamento/BuscaPagamentoControle';
+import { AtualizaPagamentoControle } from './controles/pagamento/AtualizaPagamentoControle';
 
 const router = Router();
 
@@ -46,6 +49,7 @@ router.post('/registra/cliente', Gerente, new CriaClienteControle().handle)
 router.post('/cria/itemDoPedido', Logado, new CriaItemDoPedidoControle().handle)
 router.post('/cria/produto', Logado, new CriaProdutoControle().handle)
 router.post('/criacor', Socio, new CriaCorControle().handle)
+router.post('/cria/pagamento', Gerente, new CriaPagamentoControle().handle)
 
 router.get('/lista/ordemDeCompras', new ListaTodasAsOrdensDeCompraControle().handle)
 router.get('/busca/cliente', new BuscaClienteControle().handle)
@@ -60,6 +64,7 @@ router.get('/busca/cor', new BuscaCorControle().handle)
 router.get('/busca/ordemDeCompra', new BuscaOrdemDeCompraControle().handle)
 router.get('/lista/usuarios', new ListaUsuariosControle().handle)
 router.get('/listaerros', Socio, new ListaErrosControle().handle)
+router.get('/busca/pagamento', new BuscaPagamentoControle().handle)
 
 router.delete('/deleta/ordemDeCompra',  new ExcluiOrdemDeCompraControle().handle)
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
@@ -75,5 +80,6 @@ router.put('/atualiza/cliente', Gerente, new AtualizaClienteControle().handle)
 router.put('/atualiza/produto', Gerente, new AtualizaProdutoControle().handle)
 router.put('/atualiza/cor', Socio, new AtualizaCorControle().handle)
 router.put('/atualiza/produtosEmMassa', Socio, new AtualizaProdutoEmMassaControle().handle)
+router.put('/atualiza/pagamento', Gerente, new AtualizaPagamentoControle().handle)
 
 export { router };
