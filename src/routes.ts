@@ -39,6 +39,7 @@ import { BuscaItemDoPedidoControle } from './controles/itemDoPedido/BuscaItemDoP
 import { CriaPagamentoControle } from './controles/pagamento/CriaPagamentoControle';
 import { BuscaPagamentoControle } from './controles/pagamento/BuscaPagamentoControle';
 import { AtualizaPagamentoControle } from './controles/pagamento/AtualizaPagamentoControle';
+import { ListaPagamentosControle } from './controles/pagamento/ListaPagamentosControle';
 
 const router = Router();
 
@@ -65,6 +66,7 @@ router.get('/busca/ordemDeCompra', new BuscaOrdemDeCompraControle().handle)
 router.get('/lista/usuarios', new ListaUsuariosControle().handle)
 router.get('/listaerros', Socio, new ListaErrosControle().handle)
 router.get('/busca/pagamento', new BuscaPagamentoControle().handle)
+router.get('/lista/pagamentos', new ListaPagamentosControle().handle)
 
 router.delete('/deleta/ordemDeCompra',  new ExcluiOrdemDeCompraControle().handle)
 router.delete('/deleta/itemDoPedido', Gerente, new ExcluiItemDoPedidoControle().handle)
