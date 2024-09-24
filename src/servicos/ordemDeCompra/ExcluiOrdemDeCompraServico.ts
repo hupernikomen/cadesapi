@@ -42,6 +42,10 @@ class ExcluiOrdemDeCompraServico {
           id: ordemDeCompraID
         }
       })
+
+      if (!ordemDeCompraExists) {
+        return
+      }
   
       if (ordemDeCompraExists) {
         await prismaclient.ordemDeCompra.delete({

@@ -10,17 +10,27 @@ datasource db {
 // Criar uma migrations : yarn prisma migrate dev
 
 model Usuario {
-  id        String    @id @default(uuid())
-  cargo     String
-  matricula String?
-  estado    Boolean?  @default(true)
-  nome      String
-  senha     String
-  criadoEm  DateTime? @default(now())
+  id          String    @id @default(uuid())
+  cargo       String
+  matricula   String?
+  estado      Boolean?  @default(true)
+  nome        String
+  senha       String
+  codigoUnico String?
+  horario     DateTime? 
+  criadoEm    DateTime? @default(now())
 
   ordemDeCompra OrdemDeCompra[]
 
   @@map("usuarios")
+}
+
+model Ponto {
+  id          String    @id @default(uuid())
+  funcionario String?
+  horario DateTime? 
+
+  @@map("ponto")
 }
 
 model Produto {

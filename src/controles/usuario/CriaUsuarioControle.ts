@@ -6,7 +6,7 @@ class CriaUsuarioControle {
         const { cargo, nome, senha, matricula } = req.body
 
         const criaUsuarioServico = new CriaUsuarioServico()
-        const usuario = await criaUsuarioServico.execute({ cargo, nome,matricula, senha })
+        const usuario = await criaUsuarioServico.execute({ cargo, nome, matricula, senha })
 
         return res.json(usuario)
     }

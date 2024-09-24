@@ -16,8 +16,6 @@ class AtualizaClienteServico {
                 cpf_cnpj,nome, nomeFantasia, endereco, bairro, cidade, estado, whatsapp, dataNascimento, inscricaoEstadualRg, CEP
             }
         })
-
-
     }
 }
 
